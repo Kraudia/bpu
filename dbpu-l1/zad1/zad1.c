@@ -1,48 +1,65 @@
 #include <stdio.h>
-#include <cstring>
 
-bool StrStr(char* line, int lineSize, char* text, int textSize) {
-  //printf("\n%c %d %s\n", line[0], lineSize, text);
-	bool contain = false;
-	for (int i = 0; i < lineSize; i++) {
-    printf("%c\n", line[i]);
-		if (line[i] == text[0]) {
-			int j = 1;
-			for (j; j < textSize; j++) {
-				if (line[i+j] != text[j]) {
-					j--;
-					break;
-				}
-			}
-			if (j == textSize) {
-				contain = true;
-				break;
-			}
-		}
-	}
-	return contain;
+/*
+	Alternatywa dla strstr() z cstring
+	
+	Funkcja przyjmuje jako argumenty wskaźniki do:
+		- aktualnej linii
+		- wyszukiwanego słowa
+		
+	Działanie:
+	1. Jeżeli wskaźnik nie istnieje to jest zwracana cała linia.
+	2. Tworzony są pomocniczne wskaźniki na:
+		- linię (first) -> posłuży do iterowania po kolejnych pozycjach w linii
+		- szukaną frazę (second) -> posłuży do iterowania 
+			po kolejnych pozycjach w szukanym słowie
+		- linię (firstChar) -> posłuży do sprawdzenia, czy dotarliśmy do końca linii
+	3. Dopóki możemy iterować po szukanym słowie
+		
+		
+*/
+char* StrStr(char *line, const char *phraseToFind) {
+  if (!*phraseToFind) {
+		return line;
+  }
+  char *first = (char*)line, *second = (char*)phraseToFind;
+  char *firstChar = (char*)line;
+  while (*++second) {
+    firstChar++;
+  }
+
+  while (*firstChar) {
+    char *firstBegin = first;
+    second = (char*)phraseToFind;
+    while (*first && *second && *first == *second) {
+      first++;
+      second++;
+    }
+    printf("%p %p %p\n", firstBegin, first, second);
+    if (!*second)
+      return firstBegin;
+    first = firstBegin + 1;
+    firstChar++;
+  }
+  return NULL;
 }
+
 main(int argc, char *argv[]) {
    FILE *fp;
-   int lineNum = 1;
-	 int findResult = 0;
-	 char temp[512];
+   int nl = 1;
+	 char line[512];
 
    if((fp = fopen(argv[1], "r")) == NULL) {
-      printf("dsfsdf");
-     	return(-1);
+     printf("Plik nie istnieje lub wystąpił problem z jego odczytem.");
+     return(-1);
    }
 
-   while(fgets(temp, 512, fp) != NULL) {
-  		if(StrStr(temp, sizeof(temp), argv[2], sizeof(argv[2]))) {
-			     printf("Znaleziono w linii: %d\n", lineNum);
-           findResult++;
+   while(fgets(line, sizeof(line), fp) != NULL) {
+  	if(StrStr(line, argv[2])) {
+			printf("%d -> %s\n", nl, line);
     }
-    lineNum++;
+    nl++;
   }
-  if(findResult == 0) {
-  		printf("\nBrak wyników\n");
-	}
 
 	if(fp) {
   	fclose(fp);
