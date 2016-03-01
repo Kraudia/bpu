@@ -8,46 +8,40 @@
 		- wyszukiwanego słowa
 		
 	Działanie:
-	1. Jeżeli wskaźnik nie istnieje to jest zwracana cała linia.
-	2. Tworzony są pomocniczne wskaźniki na:
-		- linię (first) -> posłuży do iterowania po kolejnych pozycjach w linii
-		- szukaną frazę (second) -> posłuży do iterowania 
-			po kolejnych pozycjach w szukanym słowie
-		- linię (firstChar) -> posłuży do sprawdzenia, czy dotarliśmy do końca linii
-	3. Dopóki możemy iterować po szukanym słowie
+	ocząwszy od pierwszych znaków obu ciągów, porównywane są zawartości dwóch kolejnych wskaźników. Jeżeli szukany łacuch się skończy, to po prostu wracamy do punktu startu łańcucha, który przeszukujemy. Jeśli w danym momencie znaki, na które wskazywały wskaźniki, nie są równe, przechodzimy do nowej pozycji startowej łańcucha, który przeszukujemy.
 		
 		
 */
-char* StrStr(char *line, const char *phraseToFind) {
-  if (!*phraseToFind) {
-		return line;
-  }
-  char *first = (char*)line, *second = (char*)phraseToFind;
-  char *firstChar = (char*)line;
-  while (*++second) {
-    firstChar++;
-  }
-
-  while (*firstChar) {
-    char *firstBegin = first;
-    second = (char*)phraseToFind;
-    while (*first && *second && *first == *second) {
-      first++;
-      second++;
+char *strStr(char *line, char *toFind) {
+    if(*toFind=='\0'){
+        return line;
     }
-    printf("%p %p %p\n", firstBegin, first, second);
-    if (!*second)
-      return firstBegin;
-    first = firstBegin + 1;
-    firstChar++;
-  }
-  return NULL;
+    if(*line=='\0'){
+        return NULL;
+    }
+    
+    char *start=line;
+    char *bStart;
+    
+    while(*start!='\0'){
+        bStart=start;
+        char *bFind=toFind;
+        while(*bStart!='\0' && *bFind!='\0' && *bStart==*bFind){
+            bStart++;
+            bFind++;
+        }
+        if(*bFind=='\0'){
+            return start;
+        }
+        start++;
+    }
+    return NULL;
 }
 
 main(int argc, char *argv[]) {
    FILE *fp;
    int nl = 1;
-	 char line[512];
+   char line[512];
 
    if((fp = fopen(argv[1], "r")) == NULL) {
      printf("Plik nie istnieje lub wystąpił problem z jego odczytem.");
@@ -55,14 +49,15 @@ main(int argc, char *argv[]) {
    }
 
    while(fgets(line, sizeof(line), fp) != NULL) {
-  	if(StrStr(line, argv[2])) {
-			printf("%d -> %s\n", nl, line);
-    }
-    nl++;
-  }
+	 if(strStr(line, argv[2])) {
+		printf("%d -> %s\n", nl, line);
+     }
+     nl++;
+   }
 
-	if(fp) {
-  	fclose(fp);
-	}
-  return(0);
+   if(fp) {
+  	 fclose(fp);
+   }
+
+   return(0);
 }
