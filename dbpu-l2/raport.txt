@@ -1,0 +1,50 @@
+=============
+	ZAD.1
+=============
+
+Kod assemblerowy, powstały w zadaniu 1, znajduje się w pliku 'zad1.s'.
+
+Powstały kod charakteryzuje m.in:
+	- dyrektywy np .file, .text, .globl, .type,
+	- etykiety np .LFB0, .LFE0
+	- nazwy rejestrów poprzedzane są znakiem '%', 
+	- stałe poprzedzane są '$', 
+	- rozmiar wykonywanej operacji oznacza się literą w nazwie:
+		* b - bajt
+		* w - word (dwa bajty)
+		* l - long (cztery bajty)
+		* q - quad-word
+	- umieszczanie źródła po lewej, a celu po prawej stronie. Np. umieszczenie liczby 5 w rejestrze %eax wygląda tak:  movl $5, %eax
+	- chcąc dostać się do zawartości komórki w pamięci, np. zawartej w rejestrze eax, trzeba zastosować nawiasy okrągłe ( ): movq	-40(%rbp), %rax
+
+=============
+	ZAD.2
+=============
+
+Kod assemblerowy, powstały w zadaniu 12, znajduje się w pliku 'zad2.s'.
+
+Powstały kod charakteryzują te same cechy co powyzej.
+
+Działanie:
+	1. Prolog funkcji
+		.cfi_startproc
+		pushq	%rbp 				# zapisuje rejestr %rbp na stosie
+		.cfi_def_cfa_offset 16
+		.cfi_offset 6, -16
+		movq	%rsp, %rbp			# przenosi zawartość rejestru %rsp do %rbp
+
+	2. Przypisanie wartości 0 do rejestru %eax
+		.cfi_def_cfa_register 6
+		movl	$0, %eax			# przenosi wartość 0 do rejestru %eax
+
+	3. Epilog funkcji
+		popq	%rbp				# przywraca do rejestru 
+									  %rbp wartość zapisaną na stosie
+		.cfi_def_cfa 7, 8
+		ret							# wywołanie return
+		.cfi_endproc
+
+
+
+
+
