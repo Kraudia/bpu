@@ -1,6 +1,12 @@
-=============
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+
+#############
 	ZAD.1
-=============
+#############
 
 Kod assemblerowy, powstały w zadaniu 1, znajduje się w pliku 'zad1.s'.
 
@@ -17,9 +23,9 @@ Powstały kod charakteryzuje m.in:
 	- umieszczanie źródła po lewej, a celu po prawej stronie. Np. umieszczenie liczby 5 w rejestrze %eax wygląda tak:  movl $5, %eax
 	- chcąc dostać się do zawartości komórki w pamięci, np. zawartej w rejestrze eax, trzeba zastosować nawiasy okrągłe ( ): movq	-40(%rbp), %rax
 
-=============
+#############
 	ZAD.2
-=============
+#############
 
 Kod assemblerowy, powstały w zadaniu 12, znajduje się w pliku 'zad2.s'.
 
@@ -44,6 +50,104 @@ Działanie:
 		ret							# wywołanie return
 		.cfi_endproc
 
+
+#############
+	ZAD.3
+#############
+
+-------------
+Przykład nr 1
+
+Efekt po kompilacji i uruchomieniu programu:
+Nie dzieje się nic.
+
+Opis kodu programu:
+Kod składa się z funkcji 'main'. W bloku funkcji 'main' znajduje się wstawka assemblerowa, zawierająca instrukcję 'nop'. Instrukacja 'nop' jest odpowienikiem instrukcji pustej z C.
+
+-------------
+Przykład nr 2
+
+Efekt po kompilacji:
+drugi.c: Assembler messages:
+drugi.c:6: Error: incorrect register `%eax' used with `w' suffix
+
+Efekt po kompilacji z usuniętym suffixem i uruchomieniu programu:
+Wartość a: 0 przed wykonaniem 
+I wartość tej samej zmiennej po wykonaniu 0
+
+Opis kodu programu:
+Kod składa się z funkcji 'main'. W bloku funkcji 'main' została zdefiniowana zmienna a o wartości 0. Następnie jest on wypisana. Dalej znajduje się wstawka assemblerowa. Wstawka zawiera instrukcję: "mov $1, %0":: "r" (a)
+Instrukcja ta do zmiennej o numerze 0 (%0 -> 'a') przypisuje wartość 1. Literka r w polu zmienne wejściowe w instrukcji oznacza, że gcc może zadecydować, do którego rejestru załadować zmienną 'a'.
+Na samym końcu, po wykonaniu wstawki assemblerowej, zmienna a jest wypisywana ponownie.
+Zmienna 'a' nie zmieniła się, ponieważ z poziomu wstawki assemblerowej można się do niej tylko odwoływać - nie można jej zmieniać. 
+
+-------------
+Przykład nr 3
+
+Efekt po kompilacji:
+trzeci.c: Assembler messages:
+trzeci.c:7: Error: incorrect register `%eax' used with `w' suffix
+trzeci.c:8: Error: incorrect register `%eax' used with `w' suffix
+
+
+Efekt po kompilacji z usuniętym suffixem i uruchomieniu programu:
+Wartość a: 0 b: 0 przed wykonaniem 
+I wartość tych samych zmiennych po wykonaniu a: 0 b: 1
+
+
+Opis kodu programu:
+Kod składa się z funkcji 'main'. W bloku funkcji 'main' zostały zdefiniowane zmienne a i b, obie o wartości 0. Następnie są wypisywane. Dalej znajduje się wstawka assemblerowa. Wstawka zawiera instrukcję:
+    asm (
+        " mov $1, %0\n"
+        " mov %0, %1\n"
+        : "=r" (b)
+        : "r" (a)
+    );
+Instrukcja ta do zmiennej o numerze 0 (%0 -> 'b') przypisuje wartość 1. Natomiast do zmiennej o numerze 1 (%1 -> 'a') przypisuje wartość zmiennej o numerze 0. Literka r w instrukcji oznacza, że gcc może zadecydować, do którego rejestru załadować zmienną.
+Przy zmiennych wyjściowych bezpośrednio przed literą oznaczającą miejsce przechowywania umiescza się znak '='.
+Na samym końcu, po wykonaniu wstawki assemblerowej, zmienne a i b są wypisywane ponownie.
+
+Wstawka assemblerowa w kodzie assemlberowym:
+#APP
+# 7 "trzeci.c" 1
+	 mov $1, %eax
+ mov %eax, %eax
+
+# 0 "" 2
+#NO_APP
+
+-------------
+Przykład nr 4
+
+Efekt po kompilacji:
+czwarty.c: Assembler messages:
+czwarty.c:7: Error: incorrect register `%edx' used with `w' suffix
+czwarty.c:8: Error: incorrect register `%eax' used with `w' suffix
+
+Efekt po kompilacji z usuniętym suffixem i uruchomieniu programu:
+Wartość a: 0 b: 0 przed wykonaniem 
+I wartość tych samych zmiennych po wykonaniu a: 1 b: 1
+
+Opis kodu programu:
+Kod składa się z funkcji 'main'. W bloku funkcji 'main' zostały zdefiniowane zmienne a i b, obie o wartości 0. Następnie są wypisywane. Dalej znajduje się wstawka assemblerowa. Wstawka zawiera instrukcję:
+    asm (
+        " mov $1,%0\n"
+        " mov %0,%1\n"
+        : "=r" (b), "=r" (a) 
+        :
+    );
+Instrukcja ta do zmiennej o numerze 0 (%0 -> 'b') przypisuje wartość 1. Natomiast do zmiennej o numerze 1 (%1 -> 'a') przypisuje wartość zmiennej o numerze 0. Zarówno zmienna 'b', jak i 'a' traktowana jest jako zmienna wyjściowa. Literka r w instrukcji oznacza, że gcc może zadecydować, do którego rejestru załadować zmienną.
+Przy zmiennych wyjściowych bezpośrednio przed literą oznaczającą miejsce przechowywania umiescza się znak '='.
+Na samym końcu, po wykonaniu wstawki assemblerowej, zmienne a i b są wypisywane ponownie.
+
+Wstawka assemblerowa w kodzie assemlberowym:
+#APP
+# 7 "czwarty.c" 1
+	 mov $1,%edx
+ mov %edx,%eax
+
+# 0 "" 2
+#NO_APP
 
 
 

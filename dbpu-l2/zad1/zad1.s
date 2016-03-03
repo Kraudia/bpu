@@ -1,8 +1,8 @@
 	.file	"zad1.c"
 	.text
-	.globl	_Z6strStrPcS_
-	.type	_Z6strStrPcS_, @function
-_Z6strStrPcS_:
+	.globl	strStr
+	.type	strStr, @function
+strStr:
 .LFB0:
 	.cfi_startproc
 	pushq	%rbp
@@ -74,7 +74,7 @@ _Z6strStrPcS_:
 	ret
 	.cfi_endproc
 .LFE0:
-	.size	_Z6strStrPcS_, .-_Z6strStrPcS_
+	.size	strStr, .-strStr
 	.section	.rodata
 .LC0:
 	.string	"r"
@@ -109,9 +109,7 @@ main:
 	call	fopen
 	movq	%rax, -536(%rbp)
 	cmpq	$0, -536(%rbp)
-	sete	%al
-	testb	%al, %al
-	je	.L12
+	jne	.L12
 	movl	$.LC1, %edi
 	movl	$0, %eax
 	call	printf
@@ -126,10 +124,8 @@ main:
 	leaq	-528(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
-	call	_Z6strStrPcS_
+	call	strStr
 	testq	%rax, %rax
-	setne	%al
-	testb	%al, %al
 	je	.L15
 	leaq	-528(%rbp), %rdx
 	movl	-540(%rbp), %eax
@@ -140,15 +136,12 @@ main:
 .L15:
 	addl	$1, -540(%rbp)
 .L14:
-	movl	$512, %ecx
 	movq	-536(%rbp), %rdx
 	leaq	-528(%rbp), %rax
-	movl	%ecx, %esi
+	movl	$512, %esi
 	movq	%rax, %rdi
 	call	fgets
 	testq	%rax, %rax
-	setne	%al
-	testb	%al, %al
 	jne	.L16
 	cmpq	$0, -536(%rbp)
 	je	.L17
