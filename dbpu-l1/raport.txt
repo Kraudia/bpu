@@ -3,16 +3,21 @@
 	Dariusz Wójtowicz :: 384081
 */
 
+############################
+	Pliki ogólnego uzytku
+############################
+imiona.txt - przykładowy plik wejściowy z danymi, które są filtrowane w zadaniach 1,2,5
+overflow.txt - przykładowy plik do testowania przepełnienia bufora
 
 #############
 	ZAD.1
 #############
 
-Kod programu: zad1.c
-Plik użyty to testowania działaniu programu: test.txt
+Kod programu: zadanie1.c
+Plik użyty to testowania działaniu programu: imiona.txt
 
 Program wczytuje plik oraz szukaną frazę, które zostały podane jako argumenty.
-Przykładowy sposób wywoałania programu: ./zad1 test.txt szukana_fraza
+Przykładowy sposób wywoałania programu: ./zad1 imiona.txt szukana_fraza
 
 Na każdej linii wczytanego pliku zostaje wywołana funkcja 'strStr', która jest alternatywą dla funckji 'strstr', która znajduje sie w bilbiotece standardowej C. 
 
@@ -22,11 +27,16 @@ Funkcja przyjmuje jako argumenty wskaźniki do:
 	- wyszukiwanego słowa
 		
 Począwszy od pierwszych znaków obu ciągów, porównywane są zawartości dwóch kolejnych wskaźników. Jeżeli szukany łacuch się skończy, to po prostu wracamy do punktu startu łańcucha, który przeszukujemy. Jeśli w danym momencie znaki, na które wskazywały wskaźniki, nie są równe, przechodzimy do nowej pozycji startowej łańcucha, który przeszukujemy.
-		
+
+#############
+	ZAD.2
+#############
+zadanie2.cpp - Program w c++ wyszukujący podany wyraz z pliku - odpalenie a.out "imiona.txt" "darek" (program w pliku imiona.txt szuka linii zawierających słowo "darek")
+
 #############
 	ZAD.3
 #############
-
+zadanie3.txt - odpowiedź do zadania 3
 
 #############
 	ZAD.4
@@ -56,11 +66,11 @@ Wynik programy c1-1.cpp przed zmianami:
 19
 20
 21
-*** stack smashing detected ***: ../zad4/zad4.0 terminated
+*** stack smashing detected ***: ./zadanie4.0 terminated
 
 Wynik programu c1-1.cpp po:
 	- zmianie typu przechowywanego w tablicy (na typ o innym rozmiarze):
-		Kod programu: zad4.1.cpp
+		Kod programu: zadanie4.1.cpp
 		Wynik działania programu:
 		10
 		11
@@ -72,10 +82,10 @@ Wynik programu c1-1.cpp po:
 		17
 		18
 		19
-		*** stack smashing detected ***: ./zad4.1 terminated
+		*** stack smashing detected ***: ./zadanie4.1 terminated
 
 	- zmianie rozmiaru pierwszej tablicy
-		Kod programu: zad4.2.cpp
+		Kod programu: zadanie4.2.cpp
 		Wynik działania programu:
 		6295032
 		0
@@ -89,7 +99,7 @@ Wynik programu c1-1.cpp po:
 		32733
 
 	- próbie optymalizacji -O0
-		Kod programu: zad4.2.cpp
+		Kod programu: c1-1.cpp.cpp
 		Wynik działania programu:
 
 		zad4.0: In function `_start':
@@ -114,7 +124,7 @@ Wynik programu c1-1.cpp po:
 		/usr/lib/gcc/x86_64-linux-gnu/4.9/../../../x86_64-linux-gnu/crti.o:/build/buildd/glibc-2.21/csu/../sysdeps/x86_64/crti.S:64: first defined here
 		/usr/lib/gcc/x86_64-linux-gnu/4.9/crtend.o:(.tm_clone_table+0x0): multiple definition of `__TMC_END__'
 		zad4.0:(.data+0x10): first defined here
-		/usr/bin/ld: error in zad4.0(.eh_frame); no .eh_frame_hdr table will be created.
+		/usr/bin/ld: error in zadanie4.0(.eh_frame); no .eh_frame_hdr table will be created.
 		collect2: error: ld returned 1 exit status
 		12
 		13
@@ -126,13 +136,13 @@ Wynik programu c1-1.cpp po:
 		19
 		20
 		21
-		*** stack smashing detected ***: ./zad4.0 terminated
+		*** stack smashing detected ***: ./zadanie4.0 terminated
 		Aborted (core dumped)
 
 
 
 	- próbie optymalizacji -O3
-		Kod programu: zad4.1.cpp
+		Kod programu: c1-1.cpp.cpp
 		Wynik działania programu:
 
 		c1-1.cpp: In function ‘int main()’:
@@ -164,7 +174,7 @@ Wynik programu c1-1.cpp po:
 		/usr/lib/gcc/x86_64-linux-gnu/4.9/../../../x86_64-linux-gnu/crti.o:/build/buildd/glibc-2.21/csu/../sysdeps/x86_64/crti.S:64: first defined here
 		/usr/lib/gcc/x86_64-linux-gnu/4.9/crtend.o:(.tm_clone_table+0x0): multiple definition of `__TMC_END__'
 		zad4.0:(.data+0x10): first defined here
-		/usr/bin/ld: error in zad4.0(.eh_frame); no .eh_frame_hdr table will be created.
+		/usr/bin/ld: error in zadanie4.0(.eh_frame); no .eh_frame_hdr table will be created.
 		collect2: error: ld returned 1 exit status
 		12
 		13
@@ -176,9 +186,11 @@ Wynik programu c1-1.cpp po:
 		19
 		20
 		21
-		*** stack smashing detected ***: ./zad4.0 terminated
+		*** stack smashing detected ***: ./zadanie4.0 terminated
 		Aborted (core dumped)
 
 
-
-
+#############
+	ZAD.5
+#############
+zadanie5.py - program z zadania 5 napisany w pythonie - odaplenie python zadanie5.py imiona.txt "darek"

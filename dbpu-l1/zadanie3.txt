@@ -1,0 +1,5 @@
+Nie udało się spowodować przepełnienia buforu. Linia po prostu została przycięta, ale nie w miejscu gdzie bufor się kończy. Linia została przycięta tak, że rozwiązanie się w niej zawiera mimo, że znajduje się na końcu zbyt długiej linii.
+
+s384079@lts:~/Desktop/bpu/bpu/dbpu-l1$ gcc zadanie1.c -o zad1; ./zad1 overflow.txt przepełnienie
+4 -> a Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota Ala ma kota przepełnienie
+

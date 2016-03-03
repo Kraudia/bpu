@@ -1,0 +1,214 @@
+#############
+	ZAD.4
+#############
+
+-------------
+Przykład nr 1
+
+Efekt po kompilacji i uruchomieniu programu:
+Nie dzieje się nic.
+
+Opis kodu programu:
+Kod składa się z funkcji 'main'. W bloku funkcji 'main' znajduje się wstawka assemblerowa, zawierająca instrukcję 'nop'. Instrukacja 'nop' jest odpowienikiem instrukcji pustej z C.
+
+-------------
+Przykład nr 2
+
+Efekt po kompilacji  i uruchomieniu programu:
+Wartość a: 0 przed wykonaniem 
+I wartość tej samej zmiennej po wykonaniu 0
+
+Opis kodu programu:
+Kod składa się z funkcji 'main'. W bloku funkcji 'main' została zdefiniowana zmienna a o wartości 0. Następnie jest on wypisana. Dalej znajduje się wstawka assemblerowa. Wstawka zawiera instrukcję: "mov $1, %0":: "r" (a)
+Instrukcja ta do zmiennej o numerze 0 (%0 -> 'a') przypisuje wartość 1. Literka r w polu zmienne wejściowe w instrukcji oznacza, że gcc może zadecydować, do którego rejestru załadować zmienną 'a'.
+Na samym końcu, po wykonaniu wstawki assemblerowej, zmienna a jest wypisywana ponownie.
+Zmienna 'a' nie zmieniła się, ponieważ z poziomu wstawki assemblerowej można się do niej tylko odwoływać - nie można jej zmieniać. 
+
+-------------
+Przykład nr 3
+
+Efekt po kompilacji i uruchomieniu programu:
+Wartość a: 0 b: 0 przed wykonaniem 
+I wartość tych samych zmiennych po wykonaniu a: 0 b: 1
+
+
+Opis kodu programu:
+Kod składa się z funkcji 'main'. W bloku funkcji 'main' zostały zdefiniowane zmienne a i b, obie o wartości 0. Następnie są wypisywane. Dalej znajduje się wstawka assemblerowa. Wstawka zawiera instrukcję:
+    asm (
+        " movw $1, %0\n"
+        " movw %0, %1\n"
+        : "=r" (b)
+        : "r" (a)
+    );
+Instrukcja ta do zmiennej o numerze 0 (%0 -> 'b') przypisuje wartość 1. Natomiast do zmiennej o numerze 1 (%1 -> 'a') przypisuje wartość zmiennej o numerze 0. Literka r w instrukcji oznacza, że gcc może zadecydować, do którego rejestru załadować zmienną.
+Przy zmiennych wyjściowych bezpośrednio przed literą oznaczającą miejsce przechowywania umiescza się znak '='.
+Na samym końcu, po wykonaniu wstawki assemblerowej, zmienne a i b są wypisywane ponownie.
+
+Wstawka assemblerowa w kodzie assemlberowym:
+#APP
+# 7 "trzeci.c" 1
+	 movw $1, %eax
+ 	movw %eax, %eax
+
+# 0 "" 2
+#NO_APP
+
+-------------
+Przykład nr 4
+
+Efekt po kompilacji i uruchomieniu programu:
+Wartość a: 0 b: 0 przed wykonaniem 
+I wartość tych samych zmiennych po wykonaniu a: 134479873 b: 1
+
+Opis kodu programu:
+Kod składa się z funkcji 'main'. W bloku funkcji 'main' zostały zdefiniowane zmienne a i b, obie o wartości 0. Następnie są wypisywane. Dalej znajduje się wstawka assemblerowa. Wstawka zawiera instrukcję:
+    asm (
+        " movw $1,%0\n"
+        " movw %0,%1\n"
+        : "=r" (b), "=r" (a) 
+        :
+    );
+Instrukcja ta do zmiennej o numerze 0 (%0 -> 'b') przypisuje wartość 1. Natomiast do zmiennej o numerze 1 (%1 -> 'a') przypisuje wartość zmiennej o numerze 0. Zarówno zmienna 'b', jak i 'a' traktowana jest jako zmienna wyjściowa. Literka r w instrukcji oznacza, że gcc może zadecydować, do którego rejestru załadować zmienną.
+Przy zmiennych wyjściowych bezpośrednio przed literą oznaczającą miejsce przechowywania umiescza się znak '='.
+Na samym końcu, po wykonaniu wstawki assemblerowej, zmienne a i b są wypisywane ponownie.
+
+Wartość zmiennej 'a' wynosi 134479873. Wynika to z tego, że zmienna 'b' została umieszczona w rejestrze 32 bitowy, a została wprowadzona liczba 16 bitowa.
+
+Wstawka assemblerowa w kodzie assemlberowym:
+#APP
+# 7 "czwarty.c" 1
+	 movw $1,%edx
+ movw %edx,%eax
+
+# 0 "" 2
+#NO_APP
+
+
+-------------
+Przykład nr 5
+
+OD:
+#include <stdio.h>
+
+void main()
+{
+int a=0;
+int b=0;
+printf("Wartość a: %d b: %d przed wykonaniem \n",a,b);
+asm (
+
+    " xor %1,%1\n"
+    "movw $1,%0\n"
+    " movw %0,%1\n"
+    : "=r" (b), "=r" (a)
+    :
+
+);
+printf("I wartość tych samych zmiennych po wykonaniu a: %d b: %d\n",a,b);
+}
+
+WYNIK:
+Wartość a: 0  b: 0 przed wykonaniem
+I wartość tych samych zmiennych po wykonaniu a: 1 b: 1
+
+
+W przykładzie 4 spodziewaliśmy się, że po wykonaniu kodu assemblera zmienna 'a' będzie równa 1 i zmienna 'b' będzie równa 1.
+Zmienna 'b' faktycznie miała wartość 1 natomiast zmienna 'a' miała inną dziwną wartość. Wynikało to z tego, że zapisaliśmy 16 bitową liczbę do rejestru 32 bitowego.
+
+W tym przykładzie dodanie komendy "xor %1,%1" spowodowało wyczyszczenie rejestru przechowującego zmienną 'a' dzięki czemu umieszczenie tam wartości 1 spowodowało, że faktycznie taka wartość się tam znalazła.
+
+-------------
+Przykład nr 6
+
+KOD:
+#include <stdio.h>
+
+void main()
+{
+int a=0;
+int b=0;
+printf("Wartość a: %d b: %d przed wykonaniem \n",a,b);
+asm (
+
+    " movl $1,%0\n"
+    " movl %0,%1\n"
+    : "=r" (b), "=r" (a)
+
+);
+printf("I wartość tych samych zmiennych po wykonaniu a: %d b: %d\n",a,b);
+}
+
+WYNIK:
+Wartość a: 0  b: 0 przed wykonaniem
+I wartość tych samych zmiennych po wykonaniu a: 1 b: 1
+
+W tym przykładzie również został naprawiony błąd z przykładu ale w inny sposób.
+Zmieniająć komendę movw na movl spowodowaliśmy, że kompilator traktuje argumenty jako liczby 32 bitowe, dzięki czemu wynik również jest poprawny.
+
+OPCJA -02
+Pliki a.out (gcc szosty.c -o a.out) oraz a1.out (gcc -O2 szosty.c -o a1.out) mają taki sam rozmiar.
+NATOMIAST plik a.s (gcc szosty.c -S -o a.s) ma rozmiar 922 bajty, a a1.s (gcc -O2 szosty.c -S -o a1.s) jest odrobinę cięższy i ma rozmiar 937 bajtów.
+
+-------------
+Przykład nr 7
+
+KOD:
+#include <stdio.h>
+
+void main()
+{
+int a=0;
+int b=0;
+printf("Wartość a: %d b: %d przed wykonaniem \n",a,b);
+a=b=1;
+printf("I wartość tych samych zmiennych po wykonaniu a: %d b: %d\n",a,b);
+}
+
+WYNIK:
+Wartość a: 0 b: 0 przed wykonaniem 
+I wartość tych samych zmiennych po wykonaniu a: 1 b: 1
+
+Plik a2.s (gcc siodmy.c -S -o a2.s) ma rozmiar 917 bajtów i jest lżejszy od poprzednich dwóch plików .s
+
+-------------
+Przykład nr 8
+
+KOD: (z błędem)
+
+#include <stdio.h>
+
+void main()
+{
+int a[2]={11,12};
+int c[2];
+printf("Przed wykonaniem instrukcji a[0]=%d, a[1]=%d",a[0],a[1]);
+asm volatile(
+
+    "leal %0,%%edx\n\t"
+    "leal %1,%%ebx\n\t"
+    " movl $1,%%eax\n\t"
+    " movl $2,%%ecx\n\t"
+    " petla1:n\t"
+    " pushl %%eax\n\t"
+    "pushl %%ecx\n\t"
+    " movl $2,%%ecx\n\t"
+    " mull %%ecx\n\t"
+    " movl (%%edx,%%eax,2),%%ecx\n\t"
+    "pushl %%ebx\n\t"
+    " movl $2,%%ebx\n\t"
+    " subl %%eax,%%ebx\n\t"
+    " movl %%ebx,%%eax\n\t"
+    " popl %%ebx\n\t"
+    " movl %%ecx,(%%ebx,%%eax,2)\n\t"
+    "popl %%ecx\n\t"
+    "popl %%eax\n\t"
+    "decl %%eax\n\t"
+    " loop petla1\n\t"
+    : "=g" (a) , "=g" (c)
+    :: "ax", "cx", "dx" , "memory"
+
+
+);
+printf("Po wykonaniu instrukcji c[0]=%d, c[1]=%d\n",c[0],c[1]);
+}
+

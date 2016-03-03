@@ -1,0 +1,45 @@
+Przekazywanie argumentów do funkcji w asbemlerze możemy wykonać z wykorzystaniem rejestrów lub stosu.
+
+1. Przekazanie argumentów z wykorzystaniem rejestrów:
+
+KOD w C++:
+int dodaj(int a, int b){}
+int main() {
+	foo(5,7);
+}
+
+ASSEMBLER:
+_Z5dodajii:
+	movl	%edi, %edx #pobieramy argument 7 z rejestru %edi do rejestru %edx
+	movl	%esi, %eax #pobieramy argument 5 z rejestru %esi do rejestru %eax
+
+#dalej w funkcji dodaj operujemy na argumentach z wykorzystaniem rejestrów %edx i %eax
+
+main:
+	movl	$5, %esi #zapisujemy argument 5 do rejestru %esi
+	movl	$7, %edi #zapisujemy argument 7 do rejestru %edi
+	call	_Z5dodajii #wywołujemy funkcję 'dodaj'
+
+
+
+2. Przekazanie argumentów z wykorzystaniem stosu:
+
+KOD w C++:
+int dodaj(int a, int b, int c){}
+int main() {
+	foo(5,7,9);
+}
+
+ASSEMBLER:
+_Z5dodajii:
+	movl [ebp + 8], %eax #pobranie ze stosu argumentu 5 i zapisnie go do rejestru %eax
+	addl  [ebp + 12], %eax #pobranie ze stosu argumentu 7 i dodanie go do rejestru %eax
+	addl  [ebp + 16], %eax #pobranie ze stosu argumentu 9 i dodanie go do rejestru %eax
+
+#wynik funkcji jest zapisany w rejestrze %eax
+
+main:
+	pushq dword ptr $5 #wrzucenie na stos argumentu 5
+    pushq dword ptr $7 #wrzucenie na stos argumentu 7
+    pushq dword ptr $9 #wrzucenie na stos argumentu 9
+    call sum #wywołanie funkcji 'dodaj'
