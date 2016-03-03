@@ -8,7 +8,7 @@
 		- wyszukiwanego słowa
 		
 	Działanie:
-	ocząwszy od pierwszych znaków obu ciągów, porównywane są zawartości dwóch kolejnych wskaźników. Jeżeli szukany łacuch się skończy, to po prostu wracamy do punktu startu łańcucha, który przeszukujemy. Jeśli w danym momencie znaki, na które wskazywały wskaźniki, nie są równe, przechodzimy do nowej pozycji startowej łańcucha, który przeszukujemy.
+	Począwszy od pierwszych znaków obu ciągów, porównywane są zawartości dwóch kolejnych wskaźników. Jeżeli szukany łacuch się skończy, to po prostu wracamy do punktu startu łańcucha, który przeszukujemy. Jeśli w danym momencie znaki, na które wskazywały wskaźniki, nie są równe, przechodzimy do nowej pozycji startowej łańcucha, który przeszukujemy.
 		
 		
 */
