@@ -1,0 +1,266 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+
+Obecnie programiści przykładają uwagę aby sprawdzanie haseł w 
+tworzonych systemach było jak najbardziej odporne na ataki typu timing-attack. 
+
+Taka odporność jest zapewniania między innymi poprzez wykluczenie zależności
+pomiędzy kluczem a czasem szyfrowania haseł oraz dzięki temu, że niezależnie 
+od wprowadzonych danych kod jest wykonywany zawsze tą samą ścieżką. 
+
+Dzięki takim rozwiązaniom (szczegóły zostały podane w zadaniu 2) nie ma 
+różnicy w czasie w sytuacjach kiedy próba logowania odbywa się z podaniem 
+istniejącego loginu i nieistniejącego loginu.
+
+#############
+	ZAD.2
+#############
+Techniki obrony przed atakami typu timinig-atack dotyczącymi logowania:
+1.	Zawsze należy porównywać wszystkie znaki między hasłem podanym przez użytkownika
+	a hasłem z bazy danych niezależnie od tego czy już została wykryta różnica 
+	(czyli jeśli już wiadomo, że hasło jest błędne to i tak porównujemy je dalej aż do samego końca).
+2.	Kiedy został podany login, który nie istnieje w bazie danych to nie należy 
+	zwracać takiej informacji od razu. Należy wygenerować losowe hasło i takie hasło porównywać z hasłem podanym przez użytkownika. Dzięki temu użytkownik nie zauważy różnicy w czasie i nie będzie wiedział czy podany użytkownik istnieje czy nie ponieważ dostanie tylko informacje o tym, że podane hasło jest błędne.
+3.	Należy zawsze wykonywać kod tą samą ścieżką niezależnie od tego czy podany 
+	użytkownik istnieje oraz niezależnie od wszystkich innych czynników. Wtedy 
+	czas wykonywania będzie taki sam lub przynajmniej bardzo zbliżony.
+
+#############
+	ZAD.3
+#############
+
+Bez blokad
+----------
+Plik: zadanie3-bez.c
+Wynik: 3429707
+Czas:
+real	0m 0.050s
+user	0m 0.160s
+sys		0m 0.008s
+
+
+Z blokadami
+-----------
+Plik: zadanie3-blokada.c
+Wynik: 10000000
+Czas:
+real	0m 0.861s
+user	0m 1.112s
+sys		0m 2.004s
+
+
+Na jednym wątku
+---------------
+Plik: zadanie3-jeden.c
+Wynik: 10000000
+Czas:
+real	0m 0.057s
+user	0m 0.040s
+sys		0m 0.000s
+
+
+Najszybciej zostanie zakończony program, który został wykonany na jednym wątku.
+Następny w kolejności pod katem szybkości wykonania jest program bez blokad (z błędnym wynikiem).
+Najwolniejszy jest program wykonany na kliku wątkach.
+
+
+#############
+	ZAD.4
+#############
+
+Zadanie 3 bez blokad
+--------------------
+
+==6539== ---Thread-Announcement------------------------------------------
+==6539== 
+==6539== Thread #3 was created
+==6539==    at 0x5163E5E: clone (clone.S:74)
+==6539==    by 0x4E45179: create_thread (createthread.c:102)
+==6539==    by 0x4E46E20: pthread_create@@GLIBC_2.2.5 (pthread_create.c:677)
+==6539==    by 0x4C32BF7: ??? (in /usr/lib/valgrind/vgpreload_helgrind-amd64-linux.so)
+==6539==    by 0x400794: main (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l4/a.out)
+==6539== 
+==6539== ---Thread-Announcement------------------------------------------
+==6539== 
+==6539== Thread #2 was created
+==6539==    at 0x5163E5E: clone (clone.S:74)
+==6539==    by 0x4E45179: create_thread (createthread.c:102)
+==6539==    by 0x4E46E20: pthread_create@@GLIBC_2.2.5 (pthread_create.c:677)
+==6539==    by 0x4C32BF7: ??? (in /usr/lib/valgrind/vgpreload_helgrind-amd64-linux.so)
+==6539==    by 0x400794: main (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l4/a.out)
+==6539== 
+==6539== ----------------------------------------------------------------
+==6539== 
+==6539== Possible data race during read of size 8 at 0x6010A8 by thread #3
+==6539== Locks held: none
+==6539==    at 0x400727: child_fn (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l4/a.out)
+==6539==    by 0x4C32DF6: ??? (in /usr/lib/valgrind/vgpreload_helgrind-amd64-linux.so)
+==6539==    by 0x4E466A9: start_thread (pthread_create.c:333)
+==6539== 
+==6539== This conflicts with a previous write of size 8 by thread #2
+==6539== Locks held: none
+==6539==    at 0x400732: child_fn (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l4/a.out)
+==6539==    by 0x4C32DF6: ??? (in /usr/lib/valgrind/vgpreload_helgrind-amd64-linux.so)
+==6539==    by 0x4E466A9: start_thread (pthread_create.c:333)
+==6539==  Address 0x6010a8 is 0 bytes inside data symbol "number"
+==6539== 
+==6539== ----------------------------------------------------------------
+==6539== 
+==6539== Possible data race during write of size 8 at 0x6010A8 by thread #3
+==6539== Locks held: none
+==6539==    at 0x400732: child_fn (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l4/a.out)
+==6539==    by 0x4C32DF6: ??? (in /usr/lib/valgrind/vgpreload_helgrind-amd64-linux.so)
+==6539==    by 0x4E466A9: start_thread (pthread_create.c:333)
+==6539== 
+==6539== This conflicts with a previous write of size 8 by thread #2
+==6539== Locks held: none
+==6539==    at 0x400732: child_fn (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l4/a.out)
+==6539==    by 0x4C32DF6: ??? (in /usr/lib/valgrind/vgpreload_helgrind-amd64-linux.so)
+==6539==    by 0x4E466A9: start_thread (pthread_create.c:333)
+==6539==  Address 0x6010a8 is 0 bytes inside data symbol "number"
+==6539== 
+10000000
+==6539== 
+==6539== For counts of detected and suppressed errors, rerun with: -v
+==6539== Use --history-level=approx or =none to gain increased speed, at
+==6539== the cost of reduced accuracy of conflicting-access information
+==6539== ERROR SUMMARY: 10 errors from 2 contexts (suppressed: 0 from 0)
+
+OPIS
+Doszło do konfliktu przy próbie zapisu do zmiennej number. 
+Kilka wątków próbowało wykonać inkrementację w tym samym czasie.
+
+
+
+Zadanie 3 z blokadami
+---------------------
+==7003== Helgrind, a thread error detector
+==7003== Copyright (C) 2007-2015, and GNU GPL'd, by OpenWorks LLP et al.
+==7003== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==7003== Command: ./a.out
+==7003== 
+--7003-- Valgrind options:
+--7003--    -v
+--7003--    --tool=helgrind
+--7003-- Contents of /proc/version:
+--7003--   Linux version 4.2.0-27-generic (buildd@lgw01-12) (gcc version 5.2.1 20151010 (Ubuntu 5.2.1-22ubuntu2) ) #32-Ubuntu SMP Fri Jan 22 04:49:08 UTC 2016
+--7003-- 
+--7003-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-rdtscp-sse3-avx
+--7003-- Page sizes: currently 4096, max supported 4096
+--7003-- Valgrind library directory: /usr/lib/valgrind
+--7003-- Reading syms from /home/students/s384079/Desktop/bpu/bpu/dbpu-l4/a.out
+--7003-- Reading syms from /lib/x86_64-linux-gnu/ld-2.21.so
+--7003--   Considering /lib/x86_64-linux-gnu/ld-2.21.so ..
+--7003--   .. CRC mismatch (computed c1319e6e wanted c87fa39c)
+--7003--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.21.so ..
+--7003--   .. CRC is valid
+--7003-- Reading syms from /usr/lib/valgrind/helgrind-amd64-linux
+--7003--   Considering /usr/lib/valgrind/helgrind-amd64-linux ..
+--7003--   .. CRC mismatch (computed 9f901188 wanted 83a03730)
+--7003--    object doesn't have a symbol table
+--7003--    object doesn't have a dynamic symbol table
+--7003-- Scheduler: using generic scheduler lock implementation.
+--7003-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==7003== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-7003-by-s384079-on-???
+==7003== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-7003-by-s384079-on-???
+==7003== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-7003-by-s384079-on-???
+==7003== 
+==7003== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==7003== don't want to do, unless you know exactly what you're doing,
+==7003== or are doing some strange experiment):
+==7003==   /usr/lib/valgrind/../../bin/vgdb --pid=7003 ...command...
+==7003== 
+==7003== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==7003==   /path/to/gdb ./a.out
+==7003== and then give GDB the following command
+==7003==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=7003
+==7003== --pid is optional if only one valgrind process is running
+==7003== 
+--7003-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--7003--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--7003--   .. CRC mismatch (computed 1c3ef3cc wanted d1ae2653)
+--7003--    object doesn't have a symbol table
+--7003-- Reading syms from /usr/lib/valgrind/vgpreload_helgrind-amd64-linux.so
+--7003--   Considering /usr/lib/valgrind/vgpreload_helgrind-amd64-linux.so ..
+--7003--   .. CRC mismatch (computed c2174e9b wanted 342b45d8)
+--7003--    object doesn't have a symbol table
+--7003-- REDIR: 0x401ab30 (ld-linux-x86-64.so.2:index) redirected to 0x4c34f30 (index)
+--7003-- REDIR: 0x401ad50 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c35e40 (strcmp)
+--7003-- REDIR: 0x401add0 (ld-linux-x86-64.so.2:strlen) redirected to 0x4c35190 (strlen)
+--7003-- REDIR: 0x401bac0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c38540 (mempcpy)
+--7003-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.21.so
+--7003--   Considering /lib/x86_64-linux-gnu/libpthread-2.21.so ..
+--7003--   .. CRC mismatch (computed 71e552a9 wanted ed5c5fee)
+--7003--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libpthread-2.21.so ..
+--7003--   .. CRC is valid
+==7003== WARNING: new redirection conflicts with existing -- ignoring it
+--7003--     old: 0x04e4c900 (pthread_spin_init   ) W-> (0000.0) 0x04c34620 pthread_spin_init
+--7003--     new: 0x04e4c900 (pthread_spin_init   ) W-> (0000.0) 0x04c34630 pthread_spin_unlock
+==7003== WARNING: new redirection conflicts with existing -- ignoring it
+--7003--     old: 0x04e4c900 (pthread_spin_init   ) W-> (0000.0) 0x04c34620 pthread_spin_init
+--7003--     new: 0x04e4c900 (pthread_spin_init   ) W-> (0000.0) 0x04c34630 pthread_spin_unlock
+==7003== WARNING: new redirection conflicts with existing -- ignoring it
+--7003--     old: 0x04e4e1d0 (sem_wait@@GLIBC_2.2.) W-> (0000.0) 0x04c34710 sem_wait@*
+--7003--     new: 0x04e4e1d0 (sem_wait@@GLIBC_2.2.) W-> (0000.0) 0x04c34700 sem_wait
+==7003== WARNING: new redirection conflicts with existing -- ignoring it
+--7003--     old: 0x04e4e4a0 (sem_post@@GLIBC_2.2.) W-> (0000.0) 0x04c34730 sem_post@*
+--7003--     new: 0x04e4e4a0 (sem_post@@GLIBC_2.2.) W-> (0000.0) 0x04c34720 sem_post
+--7003-- Reading syms from /lib/x86_64-linux-gnu/libc-2.21.so
+--7003--   Considering /lib/x86_64-linux-gnu/libc-2.21.so ..
+--7003--   .. CRC mismatch (computed 871d6e12 wanted 63ccc9d2)
+--7003--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.21.so ..
+--7003--   .. CRC is valid
+--7003-- REDIR: 0x50ec950 (libc.so.6:strcasecmp) redirected to 0x4a26730 (_vgnU_ifunc_wrapper)
+--7003-- REDIR: 0x50eec40 (libc.so.6:strncasecmp) redirected to 0x4a26730 (_vgnU_ifunc_wrapper)
+--7003-- REDIR: 0x50ec0d0 (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4a26730 (_vgnU_ifunc_wrapper)
+--7003-- REDIR: 0x50ea370 (libc.so.6:rindex) redirected to 0x4c34c10 (rindex)
+--7003-- REDIR: 0x4e46930 (libpthread.so.0:pthread_create@@GLIBC_2.2.5) redirected to 0x4c33d00 (pthread_create@*)
+--7003-- REDIR: 0x50e1f80 (libc.so.6:calloc) redirected to 0x4c2ef00 (calloc)
+--7003-- REDIR: 0x4e48c80 (libpthread.so.0:pthread_mutex_lock) redirected to 0x4c34120 (pthread_mutex_lock)
+--7003-- REDIR: 0x4e4a3b0 (libpthread.so.0:pthread_mutex_unlock) redirected to 0x4c34150 (pthread_mutex_unlock)
+--7003-- REDIR: 0x4e47830 (libpthread.so.0:pthread_join) redirected to 0x4c33d10 (pthread_join)
+--7003-- REDIR: 0x50e17f0 (libc.so.6:free) redirected to 0x4c2e1e0 (free)
+--7003-- REDIR: 0x50f36b0 (libc.so.6:strchrnul) redirected to 0x4c382b0 (strchrnul)
+--7003-- REDIR: 0x50ec300 (libc.so.6:__GI_mempcpy) redirected to 0x4c38420 (__GI_mempcpy)
+10000000
+==7003== 
+==7003== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 19176007 from 8)
+--7003-- 
+--7003-- used_suppression: 19176007 helgrind-glibc2X-005 /usr/lib/valgrind/default.supp:945
+==7003== 
+==7003== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 19176007 from 8)
+
+OPIS
+Brak konfliktów, ponieważ przed inkrementacją każdy wątek zakładał blokadę i zwalniał ją po inkrementacji.
+
+Zadanie 3 na jednym wątku
+-------------------------
+==7300== Helgrind, a thread error detector
+==7300== Copyright (C) 2007-2015, and GNU GPL'd, by OpenWorks LLP et al.
+==7300== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==7300== Command: ./a.out
+==7300== 
+10000000
+==7300== 
+==7300== For counts of detected and suppressed errors, rerun with: -v
+==7300== Use --history-level=approx or =none to gain increased speed, at
+==7300== the cost of reduced accuracy of conflicting-access information
+==7300== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+OPIS
+Brak możliwych kolizji między wątkami, bo istnieje tylko jeden.
+
+
+#############
+  ZAD. DOD.
+#############
+Canvel, Hiltgen, Vaudenay i Vuagnoux przeprowadzili timing attack na OpenSSL w 2003 roku (źródło: http://soc.eurecom.fr/HWSec/labs/wka04fod-1.pdf).
+W wyniku ataku typu CREAM (cache timing-attack) wykryto lukę Heartbleed w 2014 roku.
+
+Najbardziej narażone są systemy kryptograficzne.

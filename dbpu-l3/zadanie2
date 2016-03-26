@@ -1,0 +1,173 @@
+/*
+	Zadanie 1 (lab1) - C
+*/
+#include <stdio.h>
+
+char *strStr(char *line, char *toFind) {
+    if(*toFind=='\0'){
+        return line;
+    }
+    if(*line=='\0'){
+        return NULL;
+    }
+    
+    char *start=line;
+    char *bStart;
+    
+    while(*start!='\0'){
+        bStart=start;
+        char *bFind=toFind;
+        while(*bStart!='\0' && *bFind!='\0' && *bStart==*bFind){
+            bStart++;
+            bFind++;
+        }
+        if(*bFind=='\0'){
+            return start;
+        }
+        start++;
+    }
+    return NULL;
+}
+
+int main(int argc, char *argv[]) {
+   FILE *fp;
+   int nl = 1;
+   char line[512];
+
+   if((fp = fopen(argv[1], "r")) == NULL) {
+     printf("Plik nie istnieje lub wystąpił problem z jego odczytem.");
+     return(-1);
+   }
+
+   while(fgets(line, sizeof(line), fp) != NULL) {
+	 if(strStr(line, argv[2])) {
+		printf("%d -> %s\n", nl, line);
+     }
+     nl++;
+   }
+
+   if(fp) {
+  	 fclose(fp);
+   }
+
+   return(0);
+}
+
+
+Valgrind output:
+==5787== HEAP SUMMARY:
+==5787==     in use at exit: 0 bytes in 0 blocks
+==5787==   total heap usage: 1 allocs, 1 frees, 552 bytes allocated
+==5787== 
+==5787== All heap blocks were freed -- no leaks are possible
+
+Nie znaleziono błędów.
+
+/*
+	Zadanie 2 (lab1) - C++
+*/
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+bool search(string line, string text) {
+	bool contain = false;
+	for (int i = 0; i < line.length(); i++) {
+		if (line[i] == text[0]) {
+			int j = 1;
+			for (j; j < text.length(); j++) {
+				if (line[i+j] != text[j]) {
+					j--;
+					break;	
+				}					
+			}
+			if (j == text.length()) {
+				contain = true;
+				break;
+			}
+		}
+	}
+	return contain;
+}
+
+int main (int argc, char * argv[]) {
+  string line;
+  ifstream myfile (argv[1]);
+  string text = argv[2];
+  if (myfile.is_open()) {
+  	while ( getline (myfile,line) ) {
+		if (search(line, text)) {
+			cout << line << '\n';
+		}		
+	}
+	myfile.close();
+  }
+  else cout << "Unable to open file"; 
+  return 0;
+}
+
+Valgrind output:
+==5899== HEAP SUMMARY:
+==5899==     in use at exit: 72,704 bytes in 1 blocks
+==5899==   total heap usage: 3 allocs, 2 frees, 81,448 bytes allocated
+==5899== 
+==5899== LEAK SUMMARY:
+==5899==    definitely lost: 0 bytes in 0 blocks
+==5899==    indirectly lost: 0 bytes in 0 blocks
+==5899==      possibly lost: 0 bytes in 0 blocks
+==5899==    still reachable: 72,704 bytes in 1 blocks
+==5899==         suppressed: 0 bytes in 0 blocks
+
+Znalezione błędy:
+1. Nie zwolniono pamięci (3 allocs, 2 frees; still reachable: 72,704 bytes in 1 blocks)
+
+
+/*
+	Zadanie 5 (lab1) - Python
+*/
+
+from sys import argv
+
+script, filename = argv
+text = "darek"
+
+def search line, text :
+	contain = 0
+	for i in range(0, len(line)-1):
+		if (line[i] == text[0]):
+			j = 1
+			while (j < len(text)):
+				if (line[i+j] != text[j]):
+					j -= 1
+					break	
+				j += 1 
+			if (j == len(text)):
+				contain = 1
+				break
+	return contain
+
+with open(filename, "r") as ins:
+    for line in ins:
+		if (search(line, text)):
+			print line,
+
+Valgrind output:
+from: can't read /var/mail/sys
+./zadanie5.py: 3: ./zadanie5.py: script,: not found
+./zadanie5.py: 4: ./zadanie5.py: text: not found
+./zadanie5.py: 6: ./zadanie5.py: Syntax error: "(" unexpected
+==6113== 
+==6113== HEAP SUMMARY:
+==6113==     in use at exit: 2,214 bytes in 64 blocks
+==6113==   total heap usage: 73 allocs, 9 frees, 5,334 bytes allocated
+==6113== 
+==6113== LEAK SUMMARY:
+==6113==    definitely lost: 0 bytes in 0 blocks
+==6113==    indirectly lost: 0 bytes in 0 blocks
+==6113==      possibly lost: 0 bytes in 0 blocks
+==6113==    still reachable: 2,214 bytes in 64 blocks
+==6113==         suppressed: 0 bytes in 0 blocks
+
+Znalezione błędy:
+1. Nie zwolniono pamięci ( 73 allocs, 9 frees; still reachable: 2,214 bytes in 64 blocks)

@@ -1,0 +1,37 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+
+Plik z rozwiązaniem: zadanie1
+
+#############
+	ZAD.2
+#############
+
+Plik z rozwiązaniem: zadanie2
+Programy z wczesniejszych ćwiczeń znajdują się w katalogach: cw1, cw2
+
+#############
+	ZAD.3
+#############
+
+Plik z rozwiązaniem: zadanie3
+Program mnożący macierze: zadanie3.cpp
+
+#############
+	ZAD.4
+#############
+
+Plik z rozwiązaniem: zadanie4
+Plik z programem: zadanie4.c
+
+#############
+	ZAD.5
+#############
+
+Brak rozwiązania

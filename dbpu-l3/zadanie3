@@ -1,0 +1,59 @@
+#include <stdio.h>
+using namespace std;
+
+void multiply(int A[100][100], int B[100][100]) {
+  int i, j, k;
+  int C[100][100];
+  for(i = 0; i < 100; i++)
+    for(j = 0; j < 100; j++)
+      C[i][j] = 0;
+  for(i = 0; i < 100; i++)
+    for(j = 0; j < 100; j++)
+      for(k = 0; k < 100; k++)
+        C[i][j] = C[i][j] + A[i][k] * B[k][j];
+}
+
+
+int main (int argc, char * argv[]) {
+	int matrix1[100][100], matrix2[100][100];
+
+	for(int i=0; i<100; i++){
+		for(int j=0; j<100; j++){
+			matrix1[i][j] =  i + j;
+			matrix2[i][j] =  i + j + 20;
+		}
+	}
+
+	multiply(matrix1, matrix2);
+
+  	return 0;
+}
+
+Cachegrind output:
+--7267-- warning: L3 cache found, using its data for the LL simulation.
+==7267== 
+==7267== I   refs:      58,684,582
+==7267== I1  misses:           737
+==7267== LLi misses:           731
+==7267== I1  miss rate:       0.00%
+==7267== LLi miss rate:       0.00%
+==7267== 
+==7267== D   refs:      16,250,868  (15,197,506 rd   + 1,053,362 wr)
+==7267== D1  misses:        67,599  (    65,231 rd   +     2,368 wr)
+==7267== LLd misses:         3,328  (     1,039 rd   +     2,289 wr)
+==7267== D1  miss rate:        0.4% (       0.4%     +       0.2%  )
+==7267== LLd miss rate:        0.0% (       0.0%     +       0.2%  )
+==7267== 
+==7267== LL refs:           68,336  (    65,968 rd   +     2,368 wr)
+==7267== LL misses:          4,059  (     1,770 rd   +     2,289 wr)
+==7267== LL miss rate:         0.0% (       0.0%     +       0.2%  )
+
+Valgrind output:
+==7268== HEAP SUMMARY:
+==7268==     in use at exit: 0 bytes in 0 blocks
+==7268==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+
+
+Nie ma wycieków pamięci.
+
+Po zmianie pętli, na wszystkie możliwe sposoby, miss rate pozostaje bez zmian.

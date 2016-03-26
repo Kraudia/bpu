@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main (int argc, char * argv[]) {
+	char * pointer = (char *) malloc(1000);
+	free(pointer);
+	free(pointer); //Dwukrotne zwolnienie tego samego bloku pamięci
+
+	char * pointer2 = (char *) malloc(1000); //Wyciek pamięci
+  	return 0;
+}
+
+
+Valgrind output:
+
+Dwukrotne zwolnienie tego samego bloku pamięci
+==8966== Invalid free() / delete / delete[] / realloc()
+==8966==    at 0x4C2CE2B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8966==    by 0x4005BA: main (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l3/a.out)
+==8966==  Address 0x5202040 is 0 bytes inside a block of size 1,000 free'd
+==8966==    at 0x4C2CE2B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8966==    by 0x4005AE: main (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l3/a.out)
+==8966==  Block was alloc'd at
+==8966==    at 0x4C2BBCF: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8966==    by 0x40059E: main (in /home/students/s384079/Desktop/bpu/bpu/dbpu-l3/a.out)
+==8966== 
+==8966== 
+==8966== HEAP SUMMARY:
+==8966==     in use at exit: 1,000 bytes in 1 blocks
+==8966==   total heap usage: 2 allocs, 2 frees, 2,000 bytes allocated
+==8966== 
+
+Wyciek pamięci
+==8966== LEAK SUMMARY:
+==8966==    definitely lost: 1,000 bytes in 1 blocks
+==8966==    indirectly lost: 0 bytes in 0 blocks
+==8966==      possibly lost: 0 bytes in 0 blocks
+==8966==    still reachable: 0 bytes in 0 blocks
+==8966==         suppressed: 0 bytes in 0 blocks
+==8966== Rerun with --leak-check=full to see details of leaked memory
+
+
+Poprawiona wersja:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main (int argc, char * argv[]) {
+	char * pointer = (char *) malloc(1000);
+	free(pointer);
+
+	char * pointer2 = (char *) malloc(1000);
+	free(pointer2);
+  	return 0;
+}
+
