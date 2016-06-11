@@ -1,0 +1,57 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+
+*** Co to daje (wyjaśnić i podać źródła)?
+	
+	Przy optymalizacji CRT bloki RSA odpowiedzialne za mod p i q są wykonywane oddzielne, a po wykonaniu łączone. Oznacza to, że jeśli atakujący wywoła błąd w obliczeniu jednego z bloków np. mod p to mimo, że uzyska prawidłową odpowiedź dla tego bloku, dla bloku mod q będzie ona błędna.
+
+Źródło: http://crypto.stackexchange.com/a/19816
+
+
+*** Jakie są niebezpieczeństwa z tym związane?
+	Kiedy używamy CRT to musimy przechowywać wprowadzone liczby pierwsze. Istnieje więc możliwość ich przechwycenia, co zmniejsza bezpieczeństwo algorytmu.
+	Drugi problem to atak z generacją błędu podczas operacji prywatnej wykorzystującej
+CRT - jest to jeden z najbardziej efektywnych ataków na system RSA. Działa na implementacje, które wykonują operację podpisu z wykorzystaniem twierdzenia chińskiego o resztach (CRT).
+
+
+#############
+	ZAD.2
+#############
+
+Średnie (dla 3 prób) czasy wykonywania (w sekundach), czyli wypełnienia macierzy A oraz macierzy B losowymi liczbami całkowitymi z zakresu 0-50, oraz wypełnienie macierzyC zerami, a następnie wykonanie działania macierzC = macierzA * macierzB, dla trzech następujących po sobie wykonań:
+
+Pliki:
+C++: mnozenie.cpp
+Ruby: mnozenie.rb
+Javascript: mnozenie.js 
+		(otwieranie z poziomu terminala poleceniem: 
+			node mnozenie.js wielkosc_macierzy_n_x_n
+		 wymagane jest posiadanie srodowiska node.js - jest w laboratoriach
+		)
+Java: mnozenie.java
+
+Dla macierzy o wymiarach 500 x 500:
+C++: 1
+Ruby: 59
+Javascript: 4.38
+Java: 3.5
+
+Dla macierzy o wymiarach 1000 x 1000:
+C++: 24
+Ruby: 378
+Javascript: 55.76
+Java: 45
+
+Dla macierzy o wymiarach 2000 x 2000:
+C++: 205
+Ruby: 3222
+Javascript: 693.17
+Java: 514
+
+

@@ -1,0 +1,34 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.2
+#############
+
+Cechy NASZa:
+- NASZ jest dostępny w kilku odmianach, różniących się przeznaczeniem: NASZ-P służy do ochrony informacji o klauzuli "Poufne", NASZ-T - "Tajne".
+- Bazuje on w oparciu o kryptografie krzywych eliptycznych (jest to grupa technik kryptografii asymetrycznej, wykorzystująca matematyczne krzywe eliptyczne.
+Bezpieczeństwo ECC jest oparte na złożoności obliczeniowej dyskretnych logarytmów na krzywych eliptycznych.)
+- Gdy urządzenie dostanie się w ręce osób nieupoważnionych automatycznie się zresetuje. Dzięki temu kradzież urządzenia nic nie daje złodziejowi.
+- Szyfrowanie realizowane jest nie programowo, lecz za pomocą specjalnego programowalnego układu scalonego typu FPGA.
+- NASZ jest oparty o 3DES (algorytm szyfrowania symetrycznego polegający na trzykrotnym przetworzeniu wiadomości algorytmem DES) z funkcją whiteningu, której celem jest upodobnienie sygnału wyjściowego do białego szumu.
+- Gdyby ktoś chciał złamać szyfry NASZ i wykorzystał do tego wszystkie komputery pracujące dziś na świecie, to zajęłoby mu to około 14 miliardów lat.
+
+#############
+	ZAD.4
+#############
+Plik: zad4.cpp
+
+Program mnoży macierze 20x20 wypełnionione losowymi liczbami.
+
+#############
+	ZAD.6
+#############
+
+Reguła:
+alert tcp any any -> any 80 (content:"EXPIRES"; content:"Friday 13"; http_header;)
+
+Dodatkowa informacja: 
+Regułę stworzyliśmy na podstawie tego, co wyłuskaliśmy z dokumentacji. Nie mogliśmy tego przetestowac ze względu na fakt, że pomimo weekendowej walki nie udało nam się skonfigurowac Snorta, tak aby działał bez jakiegokolwiek błędu. ;/

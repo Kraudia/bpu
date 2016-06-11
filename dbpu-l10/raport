@@ -1,0 +1,46 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+
+W danym momencie można odczytać 847 bajtów (/dev/random), mówi o tym plik:
+/proc/sys/kernel/random/entropy_avail
+
+Maksymalny rozmiar pola entropii (/dev/random): 4096 bajtów
+/proc/sys/kernel/random/poolsize
+
+Liczba odczytanych bajtów zależy m.in. od ilości przerwań. Można ją zwiększyć poprzez użycie rng-tools.
+
+
+#############
+	ZAD.2
+#############
+
+Plik: zad1.c
+Wielkość odczytanych: 85 266 000 bajtów
+Procesor:
+Intel(R) Core(TM) i3-2120 CPU @ 3.30GHz
+
+#############
+	ZAD.3
+#############
+
+NAZWA: ANU Quantum Random Numbers Server
+DZIAŁANIE: Urządzenie wykorzystuje rozszczepioną na dwoje wiązkę światła laserowego i pomiar zakłóceń jakie wywołują w każdej z rozszczepionych wiązek fluktuacje próżni. 
+PRĘDKOŚĆ GENEROWANIA: Randomowe bity są generowane z prękością 5.7 Gbit/s. Ograniczeniem jest przepustowość sieci ponieważ bity są udostępniane online.
+
+NAZWA: Intel Ivy Bridge-EP
+DZIAŁANIE: Urządzenie wykorzystuje szum termiczny, czyli zakłócenia wszelkich sygnałów elektrycznych wywoływane zjawiskami termicznymi w ciałach stałych (metalach, półprzewodnikach) i gazach.
+PRĘDKOŚĆ GENEROWANIA: 3 Gbit/s
+
+NAZWA: LETech GRANG Server
+DZIAŁANIE: Urządzenie wykorzystuje szum termiczny, czyli zakłócenia wszelkich sygnałów elektrycznych wywoływane zjawiskami termicznymi w ciałach stałych (metalach, półprzewodnikach) i gazach.
+PRĘDKOŚĆ GENEROWANIA: 1.2 Gbit/S
+
+NAZWA: Comscire PQ32MU
+DZIAŁANIE: Urzdzenei wykorzystuje szum śrutowy, czyli np szum związany z przepływem prądu elektrycznego, związany z ziarnistą naturą ładunku elektrycznego.
+PRĘDKOŚĆ GENEROWANIA: 32 Mbit/s

@@ -1,0 +1,117 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+Plik: zadanie1.c
+
+
+#############
+	ZAD.2
+#############
+Sprawdź jakie mechanizmy blokowania pliku są dostępne w systemie, na którym pracujesz. Podaj przykład kodu blokującego/sprawdzającego blokadę. Czy blokada jest typu mandatory, czy advisory i czy można zablokować część pliku, czy jedynie cały?
+
+Windows
+=======
+W Windows wykorzystywane do zarządzania dostępem do plików udostępnionych są trzy mechanizmy:
+- kontrol współdzielonego dostępu, która umożliwia określenie dostępu do pliku w trybie odczyty, zapisu lub usunięcia
+- stosowanie blokady na zakresie bajtów, w celu sprawdzenia czy istnieją uprawnienia zapisu i odczytu do zadanego obszaru w pliku
+- system plików zabrania wykonywania programów jeżeli są już otwarte w trybie zapisu lub są w trakcie usuwania
+
+Blokada jest typu: mandatory.
+
+Przykład blokowania (C#):
+-------------------------
+fSuccess = LockFileEx(hFile,        
+	          LOCKFILE_EXCLUSIVE_LOCK | 
+	          LOCKFILE_FAIL_IMMEDIATELY,
+	          0,             // reserved, must be zero
+	          TESTSTRLEN,    // number of bytes to lock
+	          0,
+	          &sOverlapped); // contains the file offset
+if (!fSuccess) 
+{
+   // Handle the error.
+   printf ("LockFileEx failed (%d)\n", GetLastError());
+   return (3);
+}
+else printf("LockFileEx succeeded\n");
+
+Przykład sprawdzania blokady (C#):
+----------------------------------
+try
+{
+    using (File.Open(filePath, FileMode.Open)){}
+}
+catch (IOException e)
+{
+    var errorCode = Marshal.GetHRForException(e) & ((1 << 16) - 1);
+
+    return errorCode == 32 || errorCode == 33;
+}
+
+
+
+
+Linux
+=====
+	W systemie Linux na, którym pracuję są dostępne dwa główne mechanizmy blokowania pliku czyli FCNTL oraz FLOCK(2). 
+	Domyślnie są one typu advisory ale możne je skonfigurować tak aby były typu mandatory.
+	W przypadku FCNTL można zablokować nie tylko cały plik ale również jego poszczególne części.
+
+Przykład założenia blokady na pliku na bajtach od 100 do 109, a następnie jej
+usunięcie.
+--------------------------------------------------------------------------------
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+
+int main(int argc, char *argv[]) {
+    int fd;
+    struct flock fl;
+
+    fd = open("testfile", O_RDWR);
+    if (fd == -1)
+    /* Handle error */;
+
+    /* Make a non-blocking request to place a write lock
+       on bytes 100-109 of testfile */
+
+
+    fl.l_type = F_WRLCK;
+    fl.l_whence = SEEK_SET;
+    fl.l_start = 100;
+    fl.l_len = 10;
+
+    if (fcntl(fd, F_SETLK, &fl) == -1) {
+        if (errno == EACCES || errno == EAGAIN) {
+            printf("Already locked by another process\n");
+            /* We can't get the lock at the moment */
+        } else {
+            /* Handle unexpected error */;
+        }
+    } else { /* Lock was granted... */
+        /* Perform I/O on bytes 100 to 109 of file */
+        /* Unlock the locked bytes */
+        fl.l_type = F_UNLCK;
+        fl.l_whence = SEEK_SET;
+        fl.l_start = 100;
+        fl.l_len = 10;
+        if (fcntl(fd, F_SETLK, &fl) == -1)
+            /* Handle error */;
+    }
+    exit(EXIT_SUCCESS);
+}
+
+
+#############
+	ZAD.3
+#############
+Plik: zadanie3.c
+
+Zamiast sprintf można użyć funckji snprintf, która jest bezpieczniejsza.

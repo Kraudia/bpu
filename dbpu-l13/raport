@@ -1,0 +1,74 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+Normy ISO 27001, ISO 27002 opisują dotyczą (w różnym stopniu) bezpieczeństwa oprogramowania. Jakie inne dokumenty standaryzacyjne (szczególnie późniejsze) warto uwzględnić przy projektowaniu polityki bezpieczeństwa?
+Zadanie dodatkowe (3pkt)
+
+Przy projektowaniu polityki bezpieczeństwa warto uwzględnić także takie dokumenty jak:
+- norma ISO/IEC 17799 - zawiera wytyczne, orkeslające w jaki sposób spełnić wymagania normy ISO 27001
+- ustawa z dnia 5.08.2010 o ochronie informacji niejawnych (Dz. U. z 2010 r. Nr 182, poz. 1228),
+- rozporządzenie Rady Ministrów z dnia 12.04.2012 (Dz.U. z 2012 r. poz. 526) m.in w określające minimalne wymagania dla systemów teleinformatycznych
+
+Ponadto warto zgłębić takie rzeczy jak:
+- metodyka MARION - stosowana do oceny wdrożonej w organizacji polityki bezpieczeństwa
+- TISM
+
+#############
+	ZAD.2
+#############
+
+POLITYKA BEZPIECZEŚTWA SYSTEMU BANKOMAT
+1. Definicja bezpieczeństwa
+Bezpieczeństwo informacji jest definiowane przez:
+-Poufności (uniemożliwienie dostępu do danych osobom trzecim).
+-Integralności (uniknięcie nieautoryzowanych zmian w danych).
+-Dostępności (zapewnienie dostępu do danych, w każdym momencie żądanym przez użytkownika) 
+-Rozliczalności (zapewnie przechowywania pełnej historii dostępu do danych, wraz z informacją kto taki dostęp uzyskał).
+
+2. Oznaczanie danych
+Dane podlegające szczególnej ochronie to:
+- Informacje o przeprowaadzonych operacjach.
+- Infomacje finansowe klientów.
+- Dane dostępowe (np PIN do kart).
+- Dane osobowe klientów.
+
+3. Zasada minimalnych uprawnień
+W ramach nadawania uprawnień do danych przetwarzanych w systemach IT Firmy należy stosować zasadę „minimalnych uprawnień”, to znaczy przydzielać minimalne uprawnienia, które są konieczne do wykonywania pracy na danym stanowisku.
+
+4. Zasada wielowarstwowych zabezpieczeń
+System powinien być chroniony równolegle na wielu poziomach.  Zapewnia to pełniejszą oraz skuteczniejszą ochronę danych.
+
+5. Zasada ograniczania dostępu
+Domyślnymi uprawnieniami w systeme powinno być zabronienie dostępu. 
+
+6. Bezpieczeństwo kodów PIN
+PINy powinny być okresowo zmieniane.
+PINy nie mogą być przechowywane w formie otwartej (nie zaszyfrowanej).
+
+7. Odpowiedzialność pracowników za dane poufne
+Każdy pracownik odpowiada za utrzymanie w tajemnicy danych poufnych, do których dostęp został mu powierzony.
+
+8. Systemy IT / serwery
+Systemy IT przechowujące dane poufne muszą być odpowiednio zabezpieczone.
+W szczególności należy dbać o poufność, integralność i rozliczalność danych przetwarzanych w systemach.
+Szczegółowe informacje dotyczące przyjętych metod ochrony zostały zawarte w osobnej procedurze.
+
+9. Dokumentowanie bezpieczeństwa
+Prowadzona jesti dokumentacja w zakresie:
+-obecnie wykorzystywanych metod zabezpieczeń systemów IT,
+-budowy sieci IT,
+-ewentualnych naruszeń bezpieczeństwa systemów IT,
+
+10. Dane osobowe
+Szczegółowe wytyczne dotyczące przetwarzania danych osobowych zawarte są w osobnym dokumencie.
+
+11. Kopie zapasowe.
+Każde istotne dane powinny być archiwizowane na wypadek awarii w infrastrukturze IT.
+Nośniki z kopiami zapasowymi powinny być przechowywane w miejscu uniemożliwiającym dostęp osobom nieupoważnionym. 
+Okresowo kopie zapasowe muszą być testowane pod względem rzeczywistej możliwości odtworzenia danych.
+

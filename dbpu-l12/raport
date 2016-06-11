@@ -1,0 +1,59 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+
+Do najczęściej występujących flow należą m.in:
+- przepełnienie bufora
+- SQL injection
+- "dzikie wskaźniki" (ang. wild pointers)
+- XSS
+- HTTP header injection
+- Clickjacking 
+
+Przykład 1: przykład1.cpp
+Przykład 2: przykład2.cpp
+
+* Ciekawostka *
+Flaw nie występuje tylko w kodzie. Możemy się z nim spotkać w życiu codziennym.
+Bardzo fajne przykłady są przedstawione pod tym adresem:
+http://www.cracked.com/photoplasty_769_30-most-baffling-design-flaws-popular-products/
+
+#############
+	ZAD.2
+#############
+
+Co jest ok:
+-----------
+1. Zrozumienie ze strony prowadzącego, że studenci na studiach II stopnia już pracują. Mało wykładowców/ćwiczeniowców potrafi to zrozumieć. Dlatego też, wielki plus!
+
+2. Zadania zamiast przestarzałego kolokwium. - Taki system jest chyba najlepszy. Studenci, przyszli/obecni pracownicy, raczej nie będą nigdzie recytowac czystej teorii. Owszem jest ona ważna do zrozumienia danego zagadnienia, ale najlepiej ją przyswoić poprzez praktykę.
+
+
+Co należy zmienić:
+------------------
+1. Aplikacje to nie tylko programy napisane w C. ;) Byłoby warto zahaczyć o technologie webowe i mobilne, gdzie słowo aplikacja jest bardziej adekwatna (tak mi się wydaje).
+
+2. W sylabusie przedmiotu znajdują się takie zagadnienia jak:
+- XSS - cross-site scripting. Przykłady dla HTML i Javascript
+- Walidacja i oczyszczanie danych wejściowych. Luki związane z mieszaniem danych i kodu. Wstrzykiwanie kodu w HTML, SQL, PHP, CGI, etc.
+- Zarządzanie sesją. Autentykacja sesji. Zarządzanie identyfikatorami sesji. Klucze, hasła, tokeny.
+
+Liczyłem, że któryś z tych tematów zostanie poruszony (może coś przegapiłem? ;>). Myślę, ze byłby ciekawym elementem zajęć. Osobiście wolałbym bardziej omówić nawet po krótce powyższe tematy niż np. temat "wstawki assemblerowej". Rozumiem, że to ważna sprawa - ale z poziomu studenta trochę może nudzić i zapewne nie jest bezpośrednio związana z jego przyszłą pracą. Z tego co widzę, to nasz wydział coraz bardziej bogaci się w nowych web developerów, testerów, bazodanowców i UX-owców. Więc można uderzyć w tym kierunku.
+
+3. Ćwiczenia powinny być rozpoczynane od jakiegoś praktycznego przykładu wykonania zadania przez prowadzącego, 
+a dopiero następnie studenci powinni samodzielnie wykonać zadania, pozwoliłoby to nabrać studentom pojęcia 
+jak w ogóle zabrać się do niektórych zadań.
+
+
+
+#############
+	ZAD.3
+#############
+
+Plik: lab.cpp
+Dodano zapamiętywanie poprzedniej pozycji oraz wyższy priorytet dla komórek, które były odwiedzane mniej razy.

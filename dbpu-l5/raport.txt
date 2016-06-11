@@ -1,0 +1,400 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+Aplikacja użyta do wykonania zadań: aplikacja.cpp
+
+#############
+	ZAD.1
+#############
+
+GCC
+BEZ SETUID:
+ACCESS:
+/etc/ld.so.nohwcap
+/etc/ld.so.preload
+/tmp
+/usr/bin/gcc           
+/usr/lib/gcc/i686-linux-gnu/5/
+/usr/lib/gcc/i686-linux-gnu/5/../../../../i686-linux-gnu/lib/../lib/crt1.o 
+/usr/lib/gcc/i686-linux-gnu/5/../../../../i686-linux-gnu/lib/i386-linux-gnu/crt1.o 
+/usr/lib/gcc/i686-linux-gnu/5/../../../../i686-linux-gnu/lib/i686-linux-gnu/5/crt1.o 
+/usr/lib/gcc/i686-linux-gnu/5/../../../../i686-linux-gnu/lib/i686-linux-gnu/5/specs
+/usr/lib/gcc/i686-linux-gnu/5/../../../../i686-linux-gnu/lib/specs
+/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o
+/usr/lib/gcc/i686-linux-gnu/5/../../../i686-linux-gnu/5/crt1.o 
+/usr/lib/gcc/i686-linux-gnu/5/cc1
+/usr/lib/gcc/i686-linux-gnu/5/collect2
+/usr/lib/gcc/i686-linux-gnu/5/crtbegin.o
+/usr/lib/gcc/i686-linux-gnu/5/crtend.o
+/usr/lib/gcc/i686-linux-gnu/5/crti.o 
+/usr/lib/gcc/i686-linux-gnu/5/crtn.o 
+/usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so
+/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper
+/usr/lib/gcc/i686-linux-gnu/5/specs
+/usr/lib/gcc/i686-linux-gnu/specs
+/usr/local/bin/gcc      
+/usr/local/sbin/gcc
+/usr/sbin/gcc           
+
+OPEN:
+/etc/ld.so.cache
+/lib/i386-linux-gnu/libc.so.6
+/tmp/cc8PRc0z.o
+/tmp/ccC14Zfr.s
+/tmp/ccF2ecUK.res
+/usr/lib/locale/locale-archive
+/usr/share/locale-langpack/en/LC_MESSAGES/gcc-5.mo
+/usr/share/locale-langpack/en_US/LC_MESSAGES/gcc-5.mo
+/usr/share/locale/en/LC_MESSAGES/gcc-5.mo
+/usr/share/locale/en_US/LC_MESSAGES/gcc-5.mo
+/usr/share/locale/locale.alias
+
+Z SETUID (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+ACCESS:
++ /etc/suid-debug
+
+OPEN (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+BRAK RÓŻNIC
+
+_________________________________________________________________________________
+
+VIM
+BEZ SETUID:
+ACCESS:
+/etc/ld.so.nohwcap
+/etc/ld.so.preload
+/etc/terminfo/x/xterm-256color
+/lib/terminfo/x/xterm-256color
+
+OPEN:
+/etc/ld.so.cache
+/etc/nsswitch.conf
+/etc/papersize
+/etc/passwd
+/etc/vim/vimrc.local
+/lib/i386-linux-gnu/libacl.so.1
+/lib/i386-linux-gnu/libattr.so.1
+/lib/i386-linux-gnu/libc.so.6
+/lib/i386-linux-gnu/libdl.so.2
+/lib/i386-linux-gnu/libm.so.6
+/lib/i386-linux-gnu/libnsl.so.1
+/lib/i386-linux-gnu/libnss_compat.so.2
+/lib/i386-linux-gnu/libnss_files.so.2
+/lib/i386-linux-gnu/libnss_nis.so.2
+/lib/i386-linux-gnu/libpcre.so.3
+/lib/i386-linux-gnu/libpthread.so.0
+/lib/i386-linux-gnu/libselinux.so.1
+/lib/i386-linux-gnu/libtinfo.so.5
+/lib/terminfo/x/xterm-256color
+/proc/filesystems
+/usr/lib/i386-linux-gnu/libgpm.so.2
+/usr/lib/locale/locale-archive
+/usr/share/locale-langpack/en/LC_MESSAGES/vim.mo
+/usr/share/locale-langpack/en_US/LC_MESSAGES/vim.mo
+/usr/share/locale/locale.alias
+/usr/share/vim/vim74/debian.vim
+/usr/share/vim/vim74/filetype.vim
+/usr/share/vim/vim74/ftdetect/
+/usr/share/vim/vim74/lang/en/LC_MESSAGES/vim.mo
+/usr/share/vim/vim74/lang/en_US/LC_MESSAGES/vim.mo
+/usr/share/vim/vim74/plugin/
+/usr/share/vim/vim74/plugin/README.txt/
+/usr/share/vim/vim74/plugin/getscriptPlugin.vim
+/usr/share/vim/vim74/plugin/getscriptPlugin.vim/
+/usr/share/vim/vim74/plugin/gzip.vim
+/usr/share/vim/vim74/plugin/gzip.vim/
+/usr/share/vim/vim74/plugin/logiPat.vim
+/usr/share/vim/vim74/plugin/logiPat.vim/
+/usr/share/vim/vim74/plugin/matchparen.vim
+/usr/share/vim/vim74/plugin/matchparen.vim/
+/usr/share/vim/vim74/plugin/netrwPlugin.vim
+/usr/share/vim/vim74/plugin/netrwPlugin.vim/
+/usr/share/vim/vim74/plugin/rrhelper.vim
+/usr/share/vim/vim74/plugin/rrhelper.vim/
+/usr/share/vim/vim74/plugin/spellfile.vim
+/usr/share/vim/vim74/plugin/spellfile.vim/
+/usr/share/vim/vim74/plugin/tarPlugin.vim
+/usr/share/vim/vim74/plugin/tarPlugin.vim/
+/usr/share/vim/vim74/plugin/tohtml.vim
+/usr/share/vim/vim74/plugin/tohtml.vim/
+/usr/share/vim/vim74/plugin/vimballPlugin.vim
+/usr/share/vim/vim74/plugin/vimballPlugin.vim/
+/usr/share/vim/vim74/plugin/zipPlugin.vim
+/usr/share/vim/vim74/plugin/zipPlugin.vim/
+/usr/share/vim/vim74/scripts.vim
+/usr/share/vim/vim74/syntax/syncolor.vim
+/usr/share/vim/vim74/syntax/synload.vim
+/usr/share/vim/vim74/syntax/syntax.vim
+/usr/share/vim/vimfiles/after/ftdetect/
+/usr/share/vim/vimfiles/after/plugin/
+/usr/share/vim/vimfiles/ftdetect/
+/usr/share/vim/vimfiles/plugin/
+/usr/share/vim/vimrc
+/var/lib/vim/addons/after/ftdetect/
+/var/lib/vim/addons/after/plugin/
+/var/lib/vim/addons/ftdetect/
+/var/lib/vim/addons/plugin/
+
+Z SETUID (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+ACCESS:
++ /etc/suid-debug
+
+OPEN (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+BRAK RÓŻNIC
+
+_________________________________________________________________________________
+
+NSLOOKUP
+BEZ SETUID:
+ACCESS:
+/etc/ld.so.nohwcap
+/etc/ld.so.preload
+
+OPEN:
+/etc/ld.so.cache
+/etc/resolv.conf
+/lib/i386-linux-gnu/libc.so.6
+/lib/i386-linux-gnu/libcom_err.so.2
+/lib/i386-linux-gnu/libcrypto.so.1.0.0
+/lib/i386-linux-gnu/libdl.so.2
+/lib/i386-linux-gnu/libgcc_s.so.1
+/lib/i386-linux-gnu/libkeyutils.so.1
+/lib/i386-linux-gnu/liblzma.so.5
+/lib/i386-linux-gnu/libm.so.6
+/lib/i386-linux-gnu/libpthread.so.0
+/lib/i386-linux-gnu/libresolv.so.2
+/lib/i386-linux-gnu/libz.so.1
+/proc/sys/vm/overcommit_memory
+/usr/lib/i386-linux-gnu/libGeoIP.so.1
+/usr/lib/i386-linux-gnu/libbind9.so.140
+/usr/lib/i386-linux-gnu/libdns.so.162
+/usr/lib/i386-linux-gnu/libgssapi_krb5.so.2
+/usr/lib/i386-linux-gnu/libicudata.so.55
+/usr/lib/i386-linux-gnu/libicuuc.so.55
+/usr/lib/i386-linux-gnu/libisc.so.160
+/usr/lib/i386-linux-gnu/libisccfg.so.140
+/usr/lib/i386-linux-gnu/libk5crypto.so.3
+/usr/lib/i386-linux-gnu/libkrb5.so.3
+/usr/lib/i386-linux-gnu/libkrb5support.so.0
+/usr/lib/i386-linux-gnu/liblwres.so.141
+/usr/lib/i386-linux-gnu/libstdc++.so.6
+/usr/lib/i386-linux-gnu/libxml2.so.2
+/usr/lib/i386-linux-gnu/openssl-1.0.0/engines/libgost.so
+/usr/lib/ssl/openssl.cnf
+/usr/share/locale/en/LC_MESSAGES/libdns.cat
+/usr/share/locale/en/LC_MESSAGES/libdst.cat
+/usr/share/locale/en/LC_MESSAGES/libisc.cat
+/usr/share/locale/en/libdns.cat
+/usr/share/locale/en/libdst.cat
+/usr/share/locale/en/libisc.cat
+/usr/share/locale/en_US.UTF-8/LC_MESSAGES/libdns.cat
+/usr/share/locale/en_US.UTF-8/LC_MESSAGES/libdst.cat
+/usr/share/locale/en_US.UTF-8/LC_MESSAGES/libisc.cat
+/usr/share/locale/en_US.UTF-8/libdns.cat
+/usr/share/locale/en_US.UTF-8/libdst.cat
+/usr/share/locale/en_US.UTF-8/libisc.cat
+
+Z SETUID (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+ACCESS:
++ /etc/suid-debug
+
+OPEN (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+- /proc/sys/vm/overcommit_memory
+
+_________________________________________________________________________________
+
+PASSWD
+BEZ SETUID:
+ACCESS:
+/etc/ld.so.nohwcap
+/etc/ld.so.preload
+/var/run/utmpx
+
+OPEN:
+/etc/.pwd.lock
+/etc/ld.so.cache
+/etc/login.defs
+/etc/nsswitch.conf
+/etc/pam.d/common-account
+/etc/pam.d/common-auth
+/etc/pam.d/common-password
+/etc/pam.d/common-session
+/etc/pam.d/other
+/etc/pam.d/passwd
+/etc/passwd
+/etc/shadow
+/lib/i386-linux-gnu/libaudit.so.1
+/lib/i386-linux-gnu/libc.so.6
+/lib/i386-linux-gnu/libcrypt.so.1
+/lib/i386-linux-gnu/libdl.so.2
+/lib/i386-linux-gnu/libgcc_s.so.1
+/lib/i386-linux-gnu/libnsl.so.1
+/lib/i386-linux-gnu/libnss_compat.so.2
+/lib/i386-linux-gnu/libnss_files.so.2
+/lib/i386-linux-gnu/libnss_nis.so.2
+/lib/i386-linux-gnu/libpam.so.0
+/lib/i386-linux-gnu/libpam_misc.so.0
+/lib/i386-linux-gnu/libpcre.so.3
+/lib/i386-linux-gnu/libpthread.so.0
+/lib/i386-linux-gnu/librt.so.1
+/lib/i386-linux-gnu/libselinux.so.1
+/lib/i386-linux-gnu/security/pam_deny.so
+/lib/i386-linux-gnu/security/pam_gnome_keyring.so
+/lib/i386-linux-gnu/security/pam_permit.so
+/lib/i386-linux-gnu/security/pam_systemd.so
+/lib/i386-linux-gnu/security/pam_umask.so
+/lib/i386-linux-gnu/security/pam_unix.so
+/proc/filesystems
+/proc/self/loginuid
+/usr/lib/locale/locale-archive
+/usr/share/locale-langpack/en/LC_MESSAGES/Linux-PAM.mo
+/usr/share/locale-langpack/en/LC_MESSAGES/shadow.mo
+/usr/share/locale-langpack/en_US/LC_MESSAGES/Linux-PAM.mo
+/usr/share/locale-langpack/en_US/LC_MESSAGES/shadow.mo
+/usr/share/locale/en/LC_MESSAGES/Linux-PAM.mo
+/usr/share/locale/en/LC_MESSAGES/shadow.mo
+/usr/share/locale/en_US/LC_MESSAGES/Linux-PAM.mo
+/usr/share/locale/en_US/LC_MESSAGES/shadow.mo
+/usr/share/locale/locale.alias
+/var/run/utmp
+
+Z SETUID (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+ACCESS:
++ /etc/suid-debug
+
+OPEN (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+BRAK RÓŻNIC
+
+
+_________________________________________________________________________________
+
+NC
+BEZ SETUID:
+ACCESS:
+/etc/ld.so.nohwcap
+/etc/ld.so.preload
+
+OPEN:
+/etc/ld.so.cache
+/lib/i386-linux-gnu/libbsd.so.0
+/lib/i386-linux-gnu/libresolv.so.2
+/lib/i386-linux-gnu/libc.so.6
+
+Z SETUID (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+ACCESS:
++ /etc/suid-debug
+
+OPEN (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+BRAK RÓŻNIC
+
+_________________________________________________________________________________
+
+PING
+BEZ SETUID:
+ACCESS:
+/etc/ld.so.nohwcap
+/etc/ld.so.preload
+
+OPEN:
+/etc/host.conf
+/etc/hosts
+/etc/ld.so.cache
+/etc/nsswitch.conf
+/etc/resolv.conf
+/lib/i386-linux-gnu/libc.so.6
+/lib/i386-linux-gnu/libcap.so.2
+/lib/i386-linux-gnu/libnss_dns.so.2
+/lib/i386-linux-gnu/libnss_files.so.2
+/lib/i386-linux-gnu/libnss_mdns4_minimal.so.2
+/lib/i386-linux-gnu/libresolv.so.2
+
+Z SETUID (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+ACCESS:
++ /etc/suid-debug
+
+OPEN (WYPISANO TYLKO RÓŻNICE W STOSUNKU DO NORMLNEGO TRYBU):
+BRAK RÓŻNIC
+
+
+PODSUMOWANIE:
+Widzimy, że dla każdej aplikacji, kiedy jest ona uruchamiana z ustawionym setuid, oprócz elementów wykorzystywanyvh w trybie bez setuid wykorzystywany jest /etc/suid-debug.
+
+
+#############
+	ZAD.2
+#############
+
+#include<tunables/global>
+/dbpu-l5/aplikacja {
+   #include <abstractions/base>
+
+   /etc/ld.so.cache    r,
+   /etc/ld.so.nohwcap    r,
+   /etc/ld.so.cache    r,
+   /usr/lib/x86_64-linux-gnu/libstdc++.so.6    r,
+   /lib/x86_64-linux-gnu/libgcc_s.so.1    r,
+   /lib/x86_64-linux-gnu/libc.so.6    r,
+   /lib/x86_64-linux-gnu/libm.so.6    r,
+   /imiona.txt  r //plik tesktowy odczytywany przez program
+}
+
+#############
+	ZAD.4
+#############
+
+subject /dbpu-l5/aplikacja
+   /etc/ld.so.nohwcap r
+   /etc/ld.so.cache r
+   /usr/lib/x86_64-linux-gnu/libstdc++.so.6 r
+   /lib/x86_64-linux-gnu/libgcc_s.so.1 r
+   /lib/x86_64-linux-gnu/libc.so.6 r
+   /lib/x86_64-linux-gnu/libm.so.6 r
+   /imiona.txt r  //plik tesktowy odczytywany przez program
+
+#############
+	ZAD.5
+#############
+
+AppArmor
+- nazwy ścieżek nie wymagają etykietowania systemu plików
+- nazwy ścieżek są łatwie w zrozumieniu i sprawdzaniu
+- zautomatyzowane narzędzia w jednym miejscu
+- łatwa integracja z platformami Novell
+- kontrolowalne uprawnienia dostępu
+- zintegrowany zbiór narzędzi (z poziomu GUI i terminala)
+- łatwo przyswajalny (może posługiwać się nim biegle już po 1-2 dniach)
+- użyteczność jest jego główną cechą
+- profil dla tego samego programy jest ok 4 razy mniejszy niż w przypadku SELinux
+- predefiniowane abstrakcje
+- wyrażenia regularne i wildcardy
+- klasyczna składnia unixowa,
+- broni system operacyjny oraz aplikacje (również do zewnętrznych dostawców) przed zagrożeniami przez wymuszanie odpowieniego zachowania aplikacji
+- pozwala na tworzenie raportów oraz alarmowanie
+
+SELinux
+- załącza etykiety do wszystkich plików i procesów;
+- etykiety identyfikują kanał komunikacji, więc tworzenie nowych profili wiąże się z modyfikacją już istniejących
+- nie wszystkie aplikacje zachowują te etykiety
+- ciężki w zarządzaniu
+- niski wskaźnik adpaptacji,
+- niestandardowy i skomplikowany język
+- problematyczne zarządzanie rolami,
+- brak zintegrowanych narzędzi
+- potrzeba wielu ćwiczeń, aby posługiwać się nim biegle
+- posiada dobrą dokumentację
+- bardzo elastyczny
+- cache'uje decyzje o przyznaniu praw dostępu
+
+Grsecurity
+- inteligentny i solidny system RBAC (Role-Based Access Control), który potrafi generowanie polityki prywatności dla całego systemu bez konfiguracji
+- obszerny audyt
+- Zapobieganie wykonaniu dowolnego kodu w jądrze
+- randomizacja bazująca na stosie Kernela
+- zmiejszenie ryzyka wycieku poufnych informacji
+- ograniczenie pozwalające użytkownikowi golągać tylko własne procesy
+- alerty zabezpieczeń, zawierjące adresy IP osoby, która je wywołała
+
+
+Dodatkowe porównanie można znaleźć tutaj: https://grsecurity.net/compare.php

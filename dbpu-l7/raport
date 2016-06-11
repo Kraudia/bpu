@@ -1,0 +1,79 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+
+# Plik wymiany/pamięć wirtualna
+Można wyłączyć z użycia pamięć wirtualną/pliki wymiany dla konkretnych adresów wirtualnych używająć narzędzi mlock (w Unix) lub VirtualLock (w Windows).
+
+# Możliwość odczytu zawartości RAM po restarcie systemu
+Zabezpieczeniem przed kradzieżą wrażliwych danych z pamięci RAM jest zamknięcie wykonywanych operacji tylko i wyłącznie w obrębie procesora, tak aby żadne wrażliwe informacje nie trafiły do RAMu. Pozwalają na to na przykłąd silniki szyfrowania, które bazują na rejestrach.
+
+# Wykonanie programu na maszynie wirtualnej/zdalnej/w chmurze.
+Używać tylko chmur w serwisach, które mają wbudowane mechanizmy, które lokalnie szyfrują nasze pliki.
+
+Innym rozwiązaniem dla większości tych problemów jest takie działanie aplikacji, że po wykonaniu jakiejś wrażliwej transkacji, np. autentykacji użytkownika, aplikacja czyści obszar pamięci, w którym przechowywane są krytyczne dane takie jak login czy hasło użytkownika.
+
+
+# Metoda znajdowania kluczy kryptograficznych w dużym zrzucie pamięci:
+Cryptoloop 
+Cryptoloop to najstarsza architektura szyfrowania dysku w Linuxie. Okazuje się, że znaleźć klucz w zrzucie pamięci jest bardzo łatwo poniewaź między nazwą zaszyfrowanego pliku, a nazwą algorytmu przechowywany jest dokładnie jeden klucz. Proste wyszukiwanie w edytorze hexadecymalnym nazwy pliku pozwoli znaleźć klucz.
+
+Przykład zaprezentowany tutaj: http://prntscr.com/avik5z
+(jeżeli link wygaśnie to proszę dać znać ;) )
+
+#############
+	ZAD.2
+#############
+(źródło: 'man')
+W ogóle, funkcje te służą do blokowania i odblokowania obszarów pamięci.
+
+# mlock
+int mlock(const void *addr, size_t len);
+
+Wyłącza stronicowanie dla pamięci w zakresie rozpoczynającym się od 'addr' o rozamiarze 'len'bajtów. Zapewnia, że wszystkie strony, które zawierają część  okreslonego obszaru pamięci pozostaną w pamięci RAM, dopóki:
+	- nie zostaną odblokowane przez munlock() lub munlockall(),
+	- nie zostaną odmapowanie poprzez munmap(),
+	- do chwili, aż proces się zakończy lub uruchomi iny program poprzez 'exec'
+
+# munlock
+int munlock(const void *addr, size_t len);
+
+Włącza stronicowanie dla zadanych obszarów pamięci (w zakresie rozpoczynającym się od adres 'addd]r' i dł. 'len' bajtów). Wszystkie strony, które zawierają część danego zakresu pamięci mogą być ponownie przenoszone do zewnętrznego obszaru wymiany.
+
+# mlockall
+int mlockall(int flags);
+Wyłącza wymianę stron pamięci dla wywołujacego procesu.
+
+# munlockall
+int munlockall(void);
+Włącza ponownie stronicowanie dla wszystkich stron pamięcie odwzorowanych w przestrzeni adresowej wywołującego procesu.
+
+W Javie i C# nie są potrzebne te funkcje, bo istnieją odpowiednio JRE i CLR, które się tym zajmują.
+
+
+#############
+	ZAD.3
+#############
+Plik zadanie3.cpp
+
+#############
+   ZAD.DOD.
+#############
+
+Metody trwałego usuwania danych z nośników danych:
+	1. Mechaniczne uszkodzenia elementów nośnika np. obudowy, talerzy, głowic oraz elektroniki.
+	2. Wielokrotne nadpisywanie całego obszaru dysku nowymi danymi. Do tego procesu
+	używa się specjalistycznego oprogramowania, kótre algorytmicznie nadpisuje sektory dysku.
+	Głównym problemem jest długi czas nadpisywania i wykorzystanie tylko w przypadku sprawnych dysków.
+		Algorytmy:
+			- zerowanie (najszybszy)
+			- DoD 5220.22-M - nadpisywanie odbywa się w trzech cyklach kolejno: dowolnym wzorcem, jego dopełnieniem oraz wartością losową
+			- VSITR - nadpisywanie sektorów dysku odbywa się w siedmiu krokach. W pierwszym, trzecim i piątym dysk wypełniany jest zerami, w drugim, czwartym i szóstym jedynkami, a w ostatnim wzorcem 0xAA.
+	3. Demagnetyzacja, która polega na poddaniu nośnika działaniu silnego impulsu magnetycznego w celu rozmagnesowania warstwy zapisu. 
+	Oczyszczone w ten sposób dyski twarde nie nadają się do ponownego użycia.
+	4. Zmiana stanu skupienia nośnika ze stałego w stan ciekły, w skrócie: utylizacja chemiczna (LiquiDATA).

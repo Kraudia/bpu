@@ -1,0 +1,84 @@
+/*
+	Mariusz Wójcik :: 384079
+	Dariusz Wójtowicz :: 384081
+*/
+
+#############
+	ZAD.1
+#############
+
+Heartbleed
+
+1. Co to jest?
+Heartbleed to bug w bibliotece OpenSSL, który jest zaliczany do błędów implementacyjnych. Błąd ten powoduje lukę w bezpieczeństwie ponieważ pozwala atakującemu na odczyt chronionych danych szyfrowanych przez SSL/TLS. Atakujący może uzyskać dostęp do kluczy prywatnych, a dzięki nim z kolei może przechwycić między innymi dane użytkowników.
+Błąd ten pozwala atakującemu na przechwycenie do 64 kilobajtów danych w jednym ataku.
+Wersje OpenSSL podatne na błąd to wersje od 1.0.1 do 1.0.1f.
+
+
+2. Gdzie jest błąd?
+
+Plik: oopenssl-1.0.1/ssl/d1_both.c  -> funkcja dtls1_process_heartbeat
+oraz
+Plik: openssl-1.0.1/ssl/t1_lib.c ->  tls1_process_heartbeat
+
+Kod źródłowy funckji tls1_process_heartbeat (z zaznaczonym błędem)
+
+int tls1_process_heartbeat(SSL *s)
+{
+    unsigned char *p = &s->s3->rrec.data[0], *pl;
+    unsigned short hbtype;
+    unsigned int payload;
+    unsigned int padding = 16; /* Use minimum padding */
+    /* Read type and payload length first */
+    hbtype = *p++;
+    n2s(p, payload);
+    pl = p;
+    if (s->msg_callback)
+    s->msg_callback(0, s->version, TLS1_RT_HEARTBEAT,
+    &s->s3->rrec.data[0], s->s3->rrec.length,
+    s, s->msg_callback_arg);
+    if (hbtype == TLS1_HB_REQUEST)
+    {
+        unsigned char *buffer, *bp;
+        int r;
+        /* Allocate memory for the response, size is 1 bytes
+        * message type, plus 2 bytes payload length, plus
+        * payload, plus padding
+        */
+        buffer = OPENSSL_malloc(1 + 2 + payload + padding);
+        bp = buffer;
+        /* Enter response type, length and copy payload */
+        *bp++ = TLS1_HB_RESPONSE;
+        s2n(payload, bp);
+        memcpy(bp, pl, payload);
+        bp += payload;
+        /* Random padding */
+        RAND_pseudo_bytes(bp, padding);
+        r = ssl3_write_bytes(s, TLS1_RT_HEARTBEAT, buffer, 3 + payload + padding);
+        if (r >= 0 && s->msg_callback)
+        s->msg_callback(1, s->version, TLS1_RT_HEARTBEAT,
+        buffer, 3 + payload + padding,
+        s, s->msg_callback_arg);
+        OPENSSL_free(buffer);
+        if (r < 0)
+        return r;
+    }
+    else if (hbtype == TLS1_HB_RESPONSE)
+    {
+        unsigned int seq;
+        /* We only send sequence numbers (2 bytes unsigned int),
+        * and 16 random bytes, so we just try to read the
+        * sequence number */
+        n2s(pl, seq);
+        if (payload == 18 && seq == s->tlsext_hb_seq)
+        {
+            s->tlsext_hb_seq++;
+            s->tlsext_hb_pending = 0;
+        }
+    }
+    return 0;
+}
+
+3. Rozwiązanie:
+Należy sprawdzić, czy długość żądanych danych jest równa liczbie bajtów, którą odpytujący zadeklarował, że chce pobrać. 
+
